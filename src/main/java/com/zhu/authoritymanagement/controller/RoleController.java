@@ -1,14 +1,11 @@
 package com.zhu.authoritymanagement.controller;
 
-import com.zhu.authoritymanagement.entity.Customer;
-import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +20,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/role")
-@SuppressWarnings("deprecation")
 public class RoleController {
 
     private IRoleService roleService;

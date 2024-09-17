@@ -1,13 +1,10 @@
 package com.zhu.authoritymanagement.service.impl;
 
 import cn.hutool.crypto.digest.MD5;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
-import com.zhu.authoritymanagement.entity.Role;
-import com.zhu.authoritymanagement.entity.RoleResource;
 import com.zhu.authoritymanagement.mapper.AccountMapper;
 import com.zhu.authoritymanagement.mapper.AccountRoleMapper;
 import com.zhu.authoritymanagement.service.IAccountService;

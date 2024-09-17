@@ -4,7 +4,6 @@ import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IResourceService;
-import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

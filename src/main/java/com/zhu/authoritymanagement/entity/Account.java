@@ -2,14 +2,9 @@ package com.zhu.authoritymanagement.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>

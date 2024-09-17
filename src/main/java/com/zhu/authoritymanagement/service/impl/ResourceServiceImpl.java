@@ -1,7 +1,6 @@
 package com.zhu.authoritymanagement.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.entity.Resource;
@@ -26,7 +25,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     public List<Resource> listResourceByRoleId(Long roleId) {
-        QueryWrapper<Resource> query = Wrappers.<Resource>query();
+        QueryWrapper<Resource> query = Wrappers.query();
         query.eq("rr.role_id", roleId).isNull("re.parent_id").orderByAsc("re.sort");
         return baseMapper.selectList(query);
     }
@@ -34,7 +33,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     public HashSet<String> convert(List<Resource> resourceVOs) {
-        HashSet<String> module = new HashSet<String>();
+        HashSet<String> module = new HashSet<>();
         resourceVOs.forEach(resource -> {
             String url = resource.getUrl();
             if (StringUtils.isNotBlank(url)) {
