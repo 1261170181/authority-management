@@ -1,7 +1,6 @@
 package com.zhu.authoritymanagement.mapper;
 
 import com.zhu.authoritymanagement.entity.RoleResource;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -11,6 +10,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zhu
  * @since 2024-09-12
  */
-public interface RoleResourceMapper extends BaseMapper<RoleResource> {
-
+public interface RoleResourceMapper extends MyBaseMapper<RoleResource> {
 }

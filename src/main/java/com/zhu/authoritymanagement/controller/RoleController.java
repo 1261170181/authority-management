@@ -24,23 +24,9 @@ public class RoleController {
 
     private IRoleService roleService;
 
-    private IResourceService resourceService;
-
-    private IAccountService accountService;
-
     @Autowired
     public void setRoleService(IRoleService roleService) {
         this.roleService = roleService;
-    }
-
-    @Autowired
-    public void setResourceService(IResourceService resourceService) {
-        this.resourceService = resourceService;
-    }
-
-    @Autowired
-    public void setAccountService(IAccountService accountService) {
-        this.accountService = accountService;
     }
 
     @GetMapping("/list")

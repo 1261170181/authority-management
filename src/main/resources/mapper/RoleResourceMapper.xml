@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhu.authoritymanagement.mapper.RoleResourceMapper">
 
+    <insert id="insertBatchSomeColumn" parameterType="java.util.Collection">
+        INSERT INTO role_resource (role_id, resource_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId}, #{item.resourceId})
+        </foreach>
+    </insert>
 </mapper>

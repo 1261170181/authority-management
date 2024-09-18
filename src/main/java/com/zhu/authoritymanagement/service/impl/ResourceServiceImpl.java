@@ -32,9 +32,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
 
     @Override
-    public HashSet<String> convert(List<Resource> resourceVOs) {
+    public HashSet<String> convert(List<Resource> resources) {
         HashSet<String> module = new HashSet<>();
-        resourceVOs.forEach(resource -> {
+        resources.forEach(resource -> {
             String url = resource.getUrl();
             if (StringUtils.isNotBlank(url)) {
                 module.add(url.substring(0, url.indexOf("/")));

@@ -12,11 +12,8 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
-        String subString = requestURI.substring(1);
-        if (requestURI.contains("auth")) {
-            return true;
-        }
+        String requestUrl = request.getRequestURI();
+        String subString = requestUrl.substring(1);
         int index = subString.indexOf("/");
         if (index != -1) {
             subString = subString.substring(0, index);

@@ -34,7 +34,7 @@ public class CustomerController {
                 .select(Customer::getCustomerId, Customer::getName, Customer::getAge, Customer::getSex);
         List<Customer> customers = customerService.list(wrapper);
 
-        List<CustomerDTO> customerDTOs = customers.stream().map(customer -> {
+        List<CustomerDTO> customerDtos = customers.stream().map(customer -> {
             CustomerDTO dto = new CustomerDTO();
             dto.setId(customer.getCustomerId());
             dto.setName(customer.getName());
@@ -43,7 +43,7 @@ public class CustomerController {
             return dto;
         }).collect(Collectors.toList());
 
-        return Response.ok(customerDTOs);
+        return Response.ok(customerDtos);
     }
 
     @GetMapping("/detail")

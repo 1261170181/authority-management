@@ -16,5 +16,4 @@ public interface IAccountService extends IService<Account> {
 
     LoginDTO login(String username, String password);
     boolean setRoleAccount(Long id,Long roleId);
-    //boolean updateAccount(Account account);
 }

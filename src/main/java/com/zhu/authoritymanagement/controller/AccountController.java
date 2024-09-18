@@ -12,6 +12,7 @@ import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,16 +30,9 @@ public class AccountController {
 
     private IAccountService accountService;
 
-    private IRoleService roleService;
-
     @Autowired
     public void setAccountService(IAccountService accountService) {
         this.accountService = accountService;
-    }
-
-    @Autowired
-    public void setRoleService(IRoleService roleService) {
-        this.roleService = roleService;
     }
 
     @GetMapping("/list")
@@ -62,7 +56,7 @@ public class AccountController {
         String password = account.getPassword();
         String salt = UUID.fastUUID().toString().replaceAll("-", "");
         MD5 md5 = new MD5(salt.getBytes());
-        String digestHex = md5.digestHex(password);  // 加密后的密文密码
+        String digestHex = md5.digestHex(password);
         account.setPassword(digestHex);
         account.setSalt(salt);
     }
@@ -89,12 +83,12 @@ public class AccountController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public Response<Object> delete(@PathVariable Long id) {
-        /*if (session != null) {
+    public Response<Object> delete(@PathVariable Long id, HttpSession session) {
+        if (session != null) {
         Account account = (Account) session.getAttribute("account");
         if (account.getAccountId().equals(id)) {
             return Response.failed("不能删除自己");
-        }}*/
+        }}
         return Response.buildR(accountService.removeById(id));
     }
 

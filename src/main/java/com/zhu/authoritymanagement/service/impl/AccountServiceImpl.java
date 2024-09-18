@@ -62,28 +62,4 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
         return true;
     }
- /*   @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean updateAccount(Account account) {
-        Long accountId = account.getAccountId();
-
-        updateById(account);
-
-        System.out.println("account = " + account);
-        System.out.println("account.getAccountId() = " + account.getAccountId());
-
-        accountRoleMapper.delete(Wrappers.<AccountRole>lambdaQuery().eq(AccountRole::getAccountId, accountId));
-
-        Long roleId = account.getRoleId();
-
-        if (roleId!=null) {
-            AccountRole accountRole = new AccountRole();
-            accountRole.setAccountId(accountId);
-            accountRole.setRoleId(roleId);
-            accountRoleMapper.insert(accountRole);
-        }
-
-        return true;
-    }*/
-
 }

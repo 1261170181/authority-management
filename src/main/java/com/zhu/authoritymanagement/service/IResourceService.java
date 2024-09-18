@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IResourceService extends IService<Resource> {
     List<Resource> listResourceByRoleId(Long roleId);
-    HashSet<String> convert(List<Resource> resourceVOS);
+    HashSet<String> convert(List<Resource> resources);
 }

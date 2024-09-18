@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,12 +37,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         List<Long> resourceIds = role.getResourceIds();
 
         if (CollectionUtils.isNotEmpty(resourceIds)) {
+            List<RoleResource> roleResources = new ArrayList<>();
             for (Long resourceId : resourceIds) {
                 RoleResource roleResource = new RoleResource();
                 roleResource.setRoleId(roleId);
                 roleResource.setResourceId(resourceId);
-                roleResourceMapper.insert(roleResource);
+                roleResources.add(roleResource);
             }
+            roleResourceMapper.insertBatchSomeColumn(roleResources);
         }
         return true;
     }
@@ -58,14 +61,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         List<Long> resourceIds = role.getResourceIds();
 
         if (CollectionUtils.isNotEmpty(resourceIds)) {
+            List<RoleResource> roleResources = new ArrayList<>();
             for (Long resourceId : resourceIds) {
                 RoleResource roleResource = new RoleResource();
                 roleResource.setRoleId(roleId);
                 roleResource.setResourceId(resourceId);
-                roleResourceMapper.insert(roleResource);
+                roleResources.add(roleResource);
             }
+            roleResourceMapper.insertBatchSomeColumn(roleResources);
         }
-
         return true;
     }
 

@@ -15,4 +15,8 @@ public class MybatisPlusConfig {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
+
+    public MySqlInjector sqlInjector() {
+        return new MySqlInjector();
+    }
 }
