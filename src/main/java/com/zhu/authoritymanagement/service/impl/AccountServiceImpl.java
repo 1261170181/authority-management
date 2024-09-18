@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * <p>
  * 账号表 服务实现类
@@ -65,7 +63,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
         return true;
     }
-    @Override
+ /*   @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateAccount(Account account) {
         Long accountId = account.getAccountId();
@@ -87,6 +85,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
 
         return true;
-    }
+    }*/
 
 }

@@ -53,9 +53,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
         updateById(role);
 
-        System.out.println("role = " + role);
-        System.out.println("role.getRoleId() = " + role.getRoleId());
-
         roleResourceMapper.delete(Wrappers.<RoleResource>lambdaQuery().eq(RoleResource::getRoleId, roleId));
 
         List<Long> resourceIds = role.getResourceIds();

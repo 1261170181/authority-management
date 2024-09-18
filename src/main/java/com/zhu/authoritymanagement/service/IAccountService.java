@@ -15,6 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IAccountService extends IService<Account> {
 
     LoginDTO login(String username, String password);
-    public boolean setRoleAccount(Long id,Long roleId);
-    public boolean updateAccount(Account account);
+    boolean setRoleAccount(Long id,Long roleId);
+    //boolean updateAccount(Account account);
 }
