@@ -1,7 +1,6 @@
 package com.zhu.authoritymanagement.service.impl;
 
 import cn.hutool.crypto.digest.MD5;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
