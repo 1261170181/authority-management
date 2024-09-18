@@ -1,8 +1,6 @@
 package com.zhu.authoritymanagement.controller;
 
 import com.zhu.authoritymanagement.entity.Role;
-import com.zhu.authoritymanagement.service.IAccountService;
-import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
