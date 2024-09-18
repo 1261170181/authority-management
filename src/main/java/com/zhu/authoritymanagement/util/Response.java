@@ -32,13 +32,6 @@ public class Response<T> {
         return new Response<>(500, message, null);
     }
 
-    public static Response<Map<String, Object>> buildPageR(IPage<?> page) {
-        Map<String, Object> data = new HashMap<>(2);
-        data.put("count", page.getTotal());
-        data.put("records", page.getRecords());
-        return ok(data);
-    }
-
     public static Response<Object> buildR(boolean success) {
         if (success) {
             return ok(null);
