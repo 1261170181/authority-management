@@ -5,7 +5,13 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ *
+ * 通用返回类
+ *
+ * @author Zhu
+ * @since 2024-9-18
+ */
 @Data
 public class Response<T> {
     private int status;

@@ -16,6 +16,13 @@ import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ *
+ * 登录控制器
+ *
+ * @author Zhu
+ * @since 2024-9-18
+ */
 @Controller
 @RequestMapping("auth")
 public class LoginController {

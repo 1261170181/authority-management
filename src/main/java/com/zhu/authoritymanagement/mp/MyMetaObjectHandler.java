@@ -8,7 +8,13 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import java.time.LocalDateTime;
-
+/**
+ *
+ * MP自动填充
+ *
+ * @author Zhu
+ * @since 2024-9-18
+ */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 

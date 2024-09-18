@@ -7,7 +7,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+/**
+ *
+ * 基础实体类
+ *
+ * @author Zhu
+ * @since 2024-9-18
+ */
 @Data
 public class BaseEntity implements Serializable {
     /**
