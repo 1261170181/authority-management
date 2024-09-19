@@ -39,6 +39,9 @@ public class LoginController {
         this.resourceService = resourceService;
     }
 
+    /**
+     * 登录
+     */
     @PostMapping("/login")
     @ResponseBody
     public String login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
@@ -58,7 +61,10 @@ public class LoginController {
         return loginDTO.getPath();
     }
 
-    @PostMapping("/logout")
+    /**
+     * 登出
+     */
+    @PutMapping("/logout")
     @ResponseBody
     public String logout(HttpSession session) {
         session.invalidate();

@@ -27,6 +27,9 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    /**
+     * 获取角色列表
+     */
     @GetMapping("/list")
     @ResponseBody
     public Response<List<Role>> listRole() {
@@ -34,12 +37,18 @@ public class RoleController {
         return Response.ok(role);
     }
 
+    /**
+     * 添加角色
+     */
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addRole(@RequestBody Role role) {
         return Response.buildResult(roleService.saveRole(role));
     }
 
+    /**
+     * 更新角色信息
+     */
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateRole(@PathVariable Long id,@RequestBody Role role) {
@@ -47,6 +56,9 @@ public class RoleController {
         return Response.buildResult(roleService.updateRole(role));
     }
 
+    /**
+     * 删除角色
+     */
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteRole(@PathVariable Long id) {
