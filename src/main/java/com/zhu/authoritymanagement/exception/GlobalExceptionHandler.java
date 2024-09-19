@@ -1,0 +1,24 @@
+package com.zhu.authoritymanagement.exception;
+
+import com.zhu.authoritymanagement.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ *
+ * 全局异常处理
+ *
+ * @author:Zhu
+ * @since:2024-9-19
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    @ExceptionHandler(Exception.class)
+    public Response<Object> handleException(Exception e) {
+        logger.error("服务器内部错误: ", e);
+        return Response.failed("服务器异常");
+    }
+}
