@@ -46,7 +46,7 @@ public class AccountController {
     @ResponseBody
     public Response<Object> addAccount(@RequestBody Account account) {
         accountService.setPasswordAndSalt(account);
-        return Response.buildR(accountService.save(account));
+        return Response.buildResult(accountService.save(account));
     }
 
     /**
@@ -56,7 +56,7 @@ public class AccountController {
     @ResponseBody
     public Response<Object> updateAccount(@PathVariable Long id, @RequestBody Account account) {
         account.setAccountId(id);
-        return Response.buildR(accountService.updateById(account));
+        return Response.buildResult(accountService.updateById(account));
     }
 
     /**
@@ -65,7 +65,7 @@ public class AccountController {
     @PutMapping("/setrole/{id}")
     @ResponseBody
     public Response<Object> setRoleAccount(@PathVariable Long id, @RequestBody Long roleId) {
-        return Response.buildR(accountService.setRoleAccount(id, roleId));
+        return Response.buildResult(accountService.setRoleAccount(id, roleId));
     }
 
     /**
@@ -80,7 +80,7 @@ public class AccountController {
                 return Response.failed("不能删除自己");
             }
         }
-        return Response.buildR(accountService.removeById(id));
+        return Response.buildResult(accountService.removeById(id));
     }
 
 }

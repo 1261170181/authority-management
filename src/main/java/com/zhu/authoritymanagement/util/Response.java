@@ -29,7 +29,7 @@ public class Response<T> {
         return new Response<>(500, message, null);
     }
 
-    public static Response<Object> buildR(boolean success) {
+    public static Response<Object> buildResult(boolean success) {
         if (success) {
             return ok(null);
         }

@@ -40,10 +40,4 @@ public class Resource implements Serializable {
     @TableField("url")
     private String url;
 
-    /**
-     * code
-     */
-    @TableField("code")
-    private String code;
-
 }

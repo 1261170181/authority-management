@@ -51,7 +51,7 @@ public class CustomerController {
     @ResponseBody
     public Response<Object> addCustomer(@RequestBody Customer customer) {
         boolean success = customerService.save(customer);
-        return Response.buildR(success);
+        return Response.buildResult(success);
     }
 
     /**
@@ -62,7 +62,7 @@ public class CustomerController {
     public Response<Object> updateCustomer(@PathVariable Long id,@RequestBody Customer customer) {
         customer.setCustomerId(id);
         boolean success = customerService.updateById(customer);
-        return Response.buildR(success);
+        return Response.buildResult(success);
     }
 
     /**
@@ -72,6 +72,6 @@ public class CustomerController {
     @ResponseBody
     public Response<Object> deleteCustomer(@PathVariable Long id) {
         boolean success = customerService.removeById(id);
-        return Response.buildR(success);
+        return Response.buildResult(success);
     }
 }

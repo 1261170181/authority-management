@@ -37,21 +37,21 @@ public class RoleController {
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addRole(@RequestBody Role role) {
-        return Response.buildR(roleService.saveRole(role));
+        return Response.buildResult(roleService.saveRole(role));
     }
 
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateRole(@PathVariable Long id,@RequestBody Role role) {
         role.setRoleId(id);
-        return Response.buildR(roleService.updateRole(role));
+        return Response.buildResult(roleService.updateRole(role));
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteRole(@PathVariable Long id) {
         boolean success = roleService.removeById(id);
-        return Response.buildR(success);
+        return Response.buildResult(success);
     }
 
 }
