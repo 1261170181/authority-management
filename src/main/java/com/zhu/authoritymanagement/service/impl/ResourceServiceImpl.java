@@ -29,26 +29,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     public List<Resource> listResourceByRoleId(Long roleId) {
         QueryWrapper<Resource> query = Wrappers.query();
         query.eq("rr.role_id", roleId);
-        return baseMapper.listResource(query);
+        return baseMapper.listResourceByRoleId(query, roleId);
     }
-
-    @Override
-    public List<Resource> listResource(Long roleId, Integer flag) {
-        if (roleId == null) {
-            LambdaQueryWrapper<Resource> wrapper = Wrappers.lambdaQuery();
-            return list(wrapper).stream().map(r -> {
-                Resource resources = new Resource();
-                resources.setResourceId(r.getResourceId());
-                resources.setResourceName(r.getResourceName());
-                return resources;
-            }).collect(Collectors.toList());
-        } else {
-            QueryWrapper<Resource> query = Wrappers.query();
-            query.eq(flag == 1, "rr.role_id", roleId);
-            return baseMapper.listResourceByRoleId(query, roleId);
-        }
-    }
-
 
     @Override
     public HashSet<String> convert(List<Resource> resources) {

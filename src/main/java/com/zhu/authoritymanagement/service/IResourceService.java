@@ -24,14 +24,6 @@ public interface IResourceService extends IService<Resource> {
     List<Resource> listResourceByRoleId(Long roleId);
 
     /**
-     * 查询对应角色所具有的资源或者所有资源
-     * @param roleId 角色id
-     * @param flag 1:查询对应角色所具有的资源 0:查询所有资源
-     * @return 资源列表
-     */
-    List<Resource> listResource(Long roleId, Integer flag);
-
-    /**
      * 将资源列表转换为资源名称集合
      * @param resources 资源列表
      * @return 资源名称集合

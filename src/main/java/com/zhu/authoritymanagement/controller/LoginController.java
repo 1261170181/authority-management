@@ -1,6 +1,7 @@
 package com.zhu.authoritymanagement.controller;
 
 import com.zhu.authoritymanagement.dto.LoginDTO;
+import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IResourceService;
@@ -40,8 +41,8 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, RedirectAttributes attributes, Model model) {
-        LoginDTO loginDTO = accountService.login(username, password);
+    public String login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
+        LoginDTO loginDTO = accountService.login(account.getUsername(), account.getPassword());
         String error = loginDTO.getError();
         if (error == null) {
             session.setAttribute("account", loginDTO.getAccount());
@@ -57,10 +58,10 @@ public class LoginController {
         return loginDTO.getPath();
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     @ResponseBody
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/auth/login";
     }
 }
