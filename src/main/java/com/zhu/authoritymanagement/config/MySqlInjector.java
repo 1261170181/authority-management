@@ -15,6 +15,12 @@ import java.util.List;
  * @since 2024-9-18
  */
 public class MySqlInjector extends DefaultSqlInjector {
+    /**
+     * InsertBatchSomeColumn配置
+     * @param mapperClass
+     * @param tableInfo
+     * @return List
+     */
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);

@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -26,16 +28,33 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     public List<Resource> listResourceByRoleId(Long roleId) {
         QueryWrapper<Resource> query = Wrappers.query();
-        query.eq("rr.role_id", roleId).isNull("re.parent_id").orderByAsc("re.sort");
-        return baseMapper.selectList(query);
+        query.eq("rr.role_id", roleId);
+        return baseMapper.listResource(query);
+    }
+
+    @Override
+    public List<Resource> listResource(Long roleId, Integer flag) {
+        if (roleId == null) {
+            LambdaQueryWrapper<Resource> wrapper = Wrappers.lambdaQuery();
+            return list(wrapper).stream().map(r -> {
+                Resource resources = new Resource();
+                resources.setResourceId(r.getResourceId());
+                resources.setResourceName(r.getResourceName());
+                return resources;
+            }).collect(Collectors.toList());
+        } else {
+            QueryWrapper<Resource> query = Wrappers.query();
+            query.eq(flag == 1, "rr.role_id", roleId);
+            return baseMapper.listResourceByRoleId(query, roleId);
+        }
     }
 
 
     @Override
     public HashSet<String> convert(List<Resource> resources) {
         HashSet<String> module = new HashSet<>();
-        resources.forEach(resource -> {
-            String url = resource.getUrl();
+        resources.forEach(r -> {
+            String url = r.getUrl();
             if (StringUtils.isNotBlank(url)) {
                 module.add(url.substring(0, url.indexOf("/")));
             }

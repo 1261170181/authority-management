@@ -1,9 +1,5 @@
 package com.zhu.authoritymanagement.controller;
 
-import cn.hutool.core.lang.UUID;
-import cn.hutool.crypto.digest.MD5;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.dto.AccountDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.service.IAccountService;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -34,60 +29,57 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    /**
+     * 获取账号列表
+     */
     @GetMapping("/list")
     @ResponseBody
     public Response<List<AccountDTO>> listAccount() {
-        LambdaQueryWrapper<Account> wrapper = Wrappers.<Account>lambdaQuery()
-                .select(Account::getAccountId, Account::getUsername);
-        List<Account> accounts = accountService.list(wrapper);
-
-        List<AccountDTO> accountDTO = accounts.stream().map(account -> {
-            AccountDTO dto = new AccountDTO();
-            dto.setId(account.getAccountId());
-            dto.setUsername(account.getUsername());
-            return dto;
-        }).collect(Collectors.toList());
-
+        List<AccountDTO> accountDTO = accountService.listAccount();
         return Response.ok(accountDTO);
     }
 
-    private void setPasswordAndSalt(Account account) {
-        String password = account.getPassword();
-        String salt = UUID.fastUUID().toString().replaceAll("-", "");
-        MD5 md5 = new MD5(salt.getBytes());
-        String digestHex = md5.digestHex(password);
-        account.setPassword(digestHex);
-        account.setSalt(salt);
-    }
-
+    /**
+     * 添加账号
+     */
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addAccount(@RequestBody Account account) {
-        setPasswordAndSalt(account);
+        accountService.setPasswordAndSalt(account);
         return Response.buildR(accountService.save(account));
     }
 
+    /**
+     * 更新账号信息
+     */
     @PutMapping("/update/{id}")
     @ResponseBody
-    public Response<Object> updateAccount(@PathVariable Long id,@RequestBody Account account) {
+    public Response<Object> updateAccount(@PathVariable Long id, @RequestBody Account account) {
         account.setAccountId(id);
         return Response.buildR(accountService.updateById(account));
     }
 
+    /**
+     * 设置账号角色
+     */
     @PutMapping("/setrole/{id}")
     @ResponseBody
-    public Response<Object> setRoleAccount(@PathVariable Long id,@RequestBody Long roleId) {
-        return Response.buildR(accountService.setRoleAccount(id,roleId));
+    public Response<Object> setRoleAccount(@PathVariable Long id, @RequestBody Long roleId) {
+        return Response.buildR(accountService.setRoleAccount(id, roleId));
     }
 
+    /**
+     * 删除账号
+     */
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> delete(@PathVariable Long id, HttpSession session) {
         if (session != null) {
-        Account account = (Account) session.getAttribute("account");
-        if (account.getAccountId().equals(id)) {
-            return Response.failed("不能删除自己");
-        }}
+            Account account = (Account) session.getAttribute("account");
+            if (account.getAccountId().equals(id)) {
+                return Response.failed("不能删除自己");
+            }
+        }
         return Response.buildR(accountService.removeById(id));
     }
 

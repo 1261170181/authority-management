@@ -1,6 +1,6 @@
 package com.zhu.authoritymanagement.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -18,6 +18,19 @@ import java.util.List;
  */
 public interface ResourceMapper extends BaseMapper<Resource> {
 
-    List<Resource> listResourceByRoleId(@Param(Constants.WRAPPER)Wrapper<Resource> wrapper, @Param("roleId") Long roleId);
+    /**
+     * 查询资源列表
+     * @param wrapper 查询条件
+     * @return 资源列表
+     */
+    List<Resource> listResource(@Param(Constants.WRAPPER) QueryWrapper<Resource> wrapper);
+
+    /**
+     * 查询对应角色所具有的资源
+     * @param wrapper 查询条件
+     * @param roleId 角色id
+     * @return 资源列表
+     */
+    List<Resource> listResourceByRoleId(@Param(Constants.WRAPPER) QueryWrapper<Resource> wrapper, @Param("roleId") Long roleId);
 
 }

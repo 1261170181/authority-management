@@ -13,5 +13,10 @@ import org.apache.ibatis.annotations.Param;
  * @since 2024-09-12
  */
 public interface AccountRoleMapper extends BaseMapper<AccountRole> {
+    /**
+     * 根据账号id查询用户角色
+     * @param accountId 账号id
+     * @return 用户角色
+     */
     AccountRole findByAccountId(@Param("accountId") Long accountId);
 }

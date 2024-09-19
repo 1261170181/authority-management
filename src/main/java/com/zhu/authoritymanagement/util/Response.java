@@ -1,10 +1,7 @@
 package com.zhu.authoritymanagement.util;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
 /**
  *
  * 通用返回类

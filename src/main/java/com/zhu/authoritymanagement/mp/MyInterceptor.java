@@ -25,9 +25,6 @@ public class MyInterceptor implements HandlerInterceptor {
             subString = subString.substring(0, index);
         }
         HashSet<String> urls = (HashSet<String>) request.getSession().getAttribute("module");
-        if (urls == null) {
-            return true;
-        }
         boolean result = urls.stream().anyMatch(subString::equals);
         if (!result) {
             response.sendRedirect("/");

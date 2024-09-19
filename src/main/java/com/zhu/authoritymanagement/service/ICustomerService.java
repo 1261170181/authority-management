@@ -1,7 +1,10 @@
 package com.zhu.authoritymanagement.service;
 
+import com.zhu.authoritymanagement.dto.CustomerDTO;
 import com.zhu.authoritymanagement.entity.Customer;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-09-12
  */
 public interface ICustomerService extends IService<Customer> {
+
+    /**
+     * 获取客户列表
+     * @return 客户列表
+     */
+    List<CustomerDTO> listCustomer();
 
 }
