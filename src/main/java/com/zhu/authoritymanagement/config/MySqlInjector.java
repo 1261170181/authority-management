@@ -17,8 +17,8 @@ import java.util.List;
 public class MySqlInjector extends DefaultSqlInjector {
     /**
      * InsertBatchSomeColumn配置
-     * @param mapperClass
-     * @param tableInfo
+     * @param mapperClass mapper类
+     * @param tableInfo 数据库信息
      * @return List
      */
     @Override
