@@ -50,8 +50,7 @@ public class CustomerController {
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addCustomer(@RequestBody Customer customer) {
-        boolean success = customerService.save(customer);
-        return Response.buildResult(success);
+        return Response.buildResult(customerService.save(customer));
     }
 
     /**
@@ -59,10 +58,12 @@ public class CustomerController {
      */
     @PutMapping("/update/{id}")
     @ResponseBody
-    public Response<Object> updateCustomer(@PathVariable Long id,@RequestBody Customer customer) {
+    public Response<Object> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+        if (customerService.getById(id) == null) {
+            return Response.failed("客户不存在");
+        }
         customer.setCustomerId(id);
-        boolean success = customerService.updateById(customer);
-        return Response.buildResult(success);
+        return Response.buildResult(customerService.updateById(customer));
     }
 
     /**
@@ -71,7 +72,9 @@ public class CustomerController {
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteCustomer(@PathVariable Long id) {
-        boolean success = customerService.removeById(id);
-        return Response.buildResult(success);
+        if (customerService.getById(id) == null) {
+            return Response.failed("客户不存在");
+        }
+        return Response.buildResult(customerService.removeById(id));
     }
 }

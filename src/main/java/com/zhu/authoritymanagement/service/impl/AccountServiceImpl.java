@@ -48,6 +48,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void setPasswordAndSalt(Account account) {
         String password = account.getPassword();
         String salt = UUID.fastUUID().toString().replaceAll("-", "");
@@ -78,21 +79,26 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         AccountRole accountRole = accountRoleMapper.findByAccountId(account.getAccountId());
         loginDTO.setAccount(account);
         loginDTO.setRoleId(accountRole.getRoleId());
-        loginDTO.setPath("main/main");
+        loginDTO.setPath("main");
         return loginDTO;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean setRoleAccount(Long id, Long roleId) {
-        if (roleId != null) {
-
-            AccountRole accountRole = new AccountRole();
-            accountRole.setAccountId(id);
-            accountRole.setRoleId(roleId);
-            accountRoleMapper.insert(accountRole);
-
-        }
+        AccountRole accountRole = new AccountRole();
+        accountRole.setAccountId(id);
+        accountRole.setRoleId(roleId);
+        accountRoleMapper.insert(accountRole);
         return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteRoleAccount(Long id) {
+        LambdaQueryWrapper<AccountRole> wrapper = Wrappers.<AccountRole>lambdaQuery()
+                .eq(AccountRole::getAccountId, id);
+        int deleted = accountRoleMapper.delete(wrapper);
+        return deleted > 0;
     }
 }

@@ -3,7 +3,6 @@ package com.zhu.authoritymanagement.util;
 import lombok.Data;
 
 /**
- *
  * 通用返回类
  *
  * @author Zhu

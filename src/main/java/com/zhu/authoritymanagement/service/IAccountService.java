@@ -19,12 +19,14 @@ public interface IAccountService extends IService<Account> {
 
     /**
      * 密码加密
+     *
      * @param account 账号
      */
     void setPasswordAndSalt(Account account);
 
     /**
      * 登录
+     *
      * @param username 用户名
      * @param password 密码
      * @return 登录信息
@@ -33,14 +35,24 @@ public interface IAccountService extends IService<Account> {
 
     /**
      * 设置账号对应角色
-     * @param id 账号id
+     *
+     * @param id     账号id
      * @param roleId 角色id
      * @return 是否设置成功
      */
-    boolean setRoleAccount(Long id,Long roleId);
+    boolean setRoleAccount(Long id, Long roleId);
+
+    /**
+     * 设置账号对应角色
+     *
+     * @param id 账号id
+     * @return 是否设置成功
+     */
+    boolean deleteRoleAccount(Long id);
 
     /**
      * 获取账号列表
+     *
      * @return 账号列表
      */
     List<AccountDTO> listAccount();
