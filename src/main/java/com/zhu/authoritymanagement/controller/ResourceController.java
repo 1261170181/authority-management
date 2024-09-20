@@ -2,7 +2,6 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.util.Response;
