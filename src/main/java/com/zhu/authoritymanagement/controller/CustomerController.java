@@ -1,5 +1,7 @@
 package com.zhu.authoritymanagement.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.dto.CustomerDTO;
 import com.zhu.authoritymanagement.entity.Customer;
 import com.zhu.authoritymanagement.service.ICustomerService;
@@ -30,8 +32,7 @@ public class CustomerController {
     @GetMapping("/list")
     @ResponseBody
     public Response<List<CustomerDTO>> listCustomer() {
-        List<CustomerDTO> customerDTO = customerService.listCustomer();
-        return Response.ok(customerDTO);
+        return Response.ok(customerService.listCustomer());
     }
 
     /**
@@ -40,8 +41,7 @@ public class CustomerController {
     @GetMapping("/detail")
     @ResponseBody
     public Response<List<Customer>> detailCustomer() {
-        List<Customer> customers = customerService.list();
-        return Response.ok(customers);
+        return Response.ok(customerService.list());
     }
 
     /**
@@ -50,6 +50,13 @@ public class CustomerController {
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addCustomer(@RequestBody Customer customer) {
+        LambdaQueryWrapper<Customer> queryWrapper = Wrappers.<Customer>lambdaQuery()
+                .eq(Customer::getName, customer.getName())
+                .eq(Customer::getAge, customer.getAge())
+                .eq(Customer::getSex, customer.getSex());
+        if (customerService.count(queryWrapper) > 0) {
+            return Response.failed("客户已在数据库中");
+        }
         return Response.buildResult(customerService.save(customer));
     }
 

@@ -49,6 +49,7 @@ public class LoginController {
         String error = loginDTO.getError();
         if (error == null) {
             session.setAttribute("account", loginDTO.getAccount());
+            model.addAttribute("role", loginDTO.getRoleId());
             List<Resource> resources = resourceService.listResourceByRoleId(loginDTO.getRoleId());
             model.addAttribute("resources", resources);
 

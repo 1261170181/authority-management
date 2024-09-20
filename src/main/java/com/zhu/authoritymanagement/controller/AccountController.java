@@ -131,9 +131,12 @@ public class AccountController {
         if (accountService.getById(id) == null) {
             return Response.failed("账号不存在");
         }
+        if (id == 1) {
+            return Response.failed("不能删除root账号");
+        }
         if (session != null) {
-            Account account = (Account) session.getAttribute("account");
-            if (account.getAccountId().equals(id)) {
+            Account currentAccount = (Account) session.getAttribute("account");
+            if (currentAccount.getAccountId().equals(id)) {
                 return Response.failed("不能删除自己");
             }
         }

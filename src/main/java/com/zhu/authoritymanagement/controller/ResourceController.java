@@ -2,6 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.util.Response;
@@ -52,6 +53,16 @@ public class ResourceController {
             return Response.failed("Url必须以/结尾");
         }
         return Response.buildResult(resourceService.save(resource));
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public Response<Object> updateResource(@PathVariable Long id, @RequestBody Resource resource) {
+        if (resourceService.getById(id) == null) {
+            return Response.failed("权限不存在");
+        }
+        resource.setResourceId(id);
+        return Response.buildResult(resourceService.updateById(resource));
     }
 
     @DeleteMapping("/delete/{id}")
