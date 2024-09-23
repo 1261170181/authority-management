@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.controller;
 
+import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.Resource;
@@ -42,11 +43,12 @@ public class LoginController {
     /**
      * 登录
      */
+    @ControllerWebLog(name = "登录")
     @PostMapping("/login")
     @ResponseBody
     public Response<String> login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
         Object currentAccount =session.getAttribute("account");
-        if (currentAccount == null) {
+        if (currentAccount != null) {
             return Response.failed("请勿重复登录！");
         }
         LoginDTO loginDTO = accountService.login(account.getUsername(), account.getPassword());
@@ -68,6 +70,7 @@ public class LoginController {
     /**
      * 登出
      */
+    @ControllerWebLog(name = "登出")
     @PutMapping("/logout")
     @ResponseBody
     public Response<String> logout(HttpSession session) {

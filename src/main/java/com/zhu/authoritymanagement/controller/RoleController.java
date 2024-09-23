@@ -50,6 +50,12 @@ public class RoleController {
         return Response.ok(roleService.listRole());
     }
 
+    @GetMapping("/detail")
+    @ResponseBody
+    public Response<List<Role>> detailRole() {
+        return Response.ok(roleService.list());
+    }
+
     /**
      * 添加角色
      */

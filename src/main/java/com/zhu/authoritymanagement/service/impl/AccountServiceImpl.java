@@ -4,6 +4,8 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.entity.Role;
+import com.zhu.authoritymanagement.mapper.RoleMapper;
 import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
@@ -30,8 +32,19 @@ import java.util.stream.Collectors;
 @Service
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements IAccountService {
 
-    @Autowired
     private AccountRoleMapper accountRoleMapper;
+
+    private RoleMapper roleMapper;
+
+    @Autowired
+    public void setAccountRoleMapper(AccountRoleMapper accountRoleMapper) {
+        this.accountRoleMapper = accountRoleMapper;
+    }
+
+    @Autowired
+    public void setRoleMapper(RoleMapper roleMapper) {
+        this.roleMapper = roleMapper;
+    }
 
     @Override
     public List<AccountVO> listAccount() {
@@ -43,6 +56,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             AccountVO accountVO = new AccountVO();
             accountVO.setId(account.getAccountId());
             accountVO.setUsername(account.getUsername());
+            AccountRole accountRole = accountRoleMapper.findByAccountId(account.getAccountId());
+            if (accountRole != null) {
+                Role role = roleMapper.selectById(accountRole.getRoleId());
+                if (role != null) {
+                    accountVO.setRoleName(role.getRoleName());
+                }
+            }
             return accountVO;
         }).collect(Collectors.toList());
     }

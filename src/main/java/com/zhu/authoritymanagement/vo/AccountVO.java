@@ -14,4 +14,6 @@ public class AccountVO {
     private Long id;
 
     private String username;
+
+    private String roleName;
 }

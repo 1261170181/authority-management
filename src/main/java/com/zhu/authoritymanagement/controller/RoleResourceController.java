@@ -1,7 +1,13 @@
 package com.zhu.authoritymanagement.controller;
 
+import com.zhu.authoritymanagement.entity.Role;
+import com.zhu.authoritymanagement.util.Response;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024-09-12
  */
 @RestController
-@RequestMapping("/authoritymanagement/roleResource")
+@RequestMapping("/roleResource")
 public class RoleResourceController {
 
 }

@@ -28,8 +28,13 @@ import java.util.stream.Collectors;
  */
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
-    @Autowired
+
     private RoleResourceMapper roleResourceMapper;
+
+    @Autowired
+    public void setRoleResourceMapper(RoleResourceMapper roleResourceMapper) {
+        this.roleResourceMapper = roleResourceMapper;
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

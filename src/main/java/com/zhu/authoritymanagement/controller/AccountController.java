@@ -2,6 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
@@ -49,18 +50,20 @@ public class AccountController {
     }
 
     /**
-     * 获取账号列表
+     * 查询账号列表
      */
+    @ControllerWebLog(name = "查询账号列表")
     @GetMapping("/list")
     @ResponseBody
     public Response<List<AccountVO>> listAccount() {
-        List<AccountVO> accountDTO = accountService.listAccount();
-        return Response.ok(accountDTO);
+        List<AccountVO> accountVO = accountService.listAccount();
+        return Response.ok(accountVO);
     }
 
     /**
      * 添加账号
      */
+    @ControllerWebLog(name = "添加账号")
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addAccount(@RequestBody Account account) {
@@ -81,6 +84,7 @@ public class AccountController {
     /**
      * 更新账号信息
      */
+    @ControllerWebLog(name = "更新账号信息")
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateAccount(@PathVariable Long id, @RequestBody Account account) {
@@ -92,8 +96,9 @@ public class AccountController {
     }
 
     /**
-     * 设置账号对应角色
+     * 设置账号绑定角色
      */
+    @ControllerWebLog(name = "设置账号绑定角色")
     @PutMapping("/setrole/{id}")
     @ResponseBody
     public Response<Object> setRoleAccount(@PathVariable Long id, @RequestBody Long roleId) {
@@ -113,8 +118,9 @@ public class AccountController {
     }
 
     /**
-     * 删除账号对应角色
+     * 解除账号绑定角色
      */
+    @ControllerWebLog(name = "解除账号绑定角色")
     @PutMapping("/deleterole/{id}")
     @ResponseBody
     public Response<Object> deleteRoleAccount(@PathVariable Long id) {
@@ -130,6 +136,7 @@ public class AccountController {
     /**
      * 删除账号
      */
+    @ControllerWebLog(name = "删除账号")
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> delete(@PathVariable Long id, HttpSession session) {

@@ -28,7 +28,7 @@ public class MyInterceptor implements HandlerInterceptor {
         HashSet<String> urls = (HashSet<String>) request.getSession().getAttribute("module");
         boolean result = urls != null && urls.stream().anyMatch(subString::equals);
         if (!result) {
-            response.sendRedirect("/error");
+            response.sendError(403, "没有权限");
         }
         return result;
     }
