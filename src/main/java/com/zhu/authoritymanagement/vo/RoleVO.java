@@ -2,8 +2,6 @@ package com.zhu.authoritymanagement.vo;
 
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * 角色VO
  *
