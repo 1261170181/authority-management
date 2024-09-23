@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.extension.injector.methods.InsertBatchSomeColumn;
 
 import java.util.List;
+
 /**
- *
  * 自定义Sql注入器
  *
  * @author Zhu
@@ -17,8 +17,9 @@ import java.util.List;
 public class MySqlInjector extends DefaultSqlInjector {
     /**
      * InsertBatchSomeColumn配置
+     *
      * @param mapperClass mapper类
-     * @param tableInfo 数据库信息
+     * @param tableInfo   数据库信息
      * @return List
      */
     @Override

@@ -5,6 +5,7 @@ import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IResourceService;
+import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- *
  * 登录控制器
  *
  * @author Zhu
@@ -44,7 +44,10 @@ public class LoginController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
+    public Response<String> login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
+        if (session.getAttribute("account") != null) {
+            return Response.failed("请勿重复登录！");
+        }
         LoginDTO loginDTO = accountService.login(account.getUsername(), account.getPassword());
         String error = loginDTO.getError();
         if (error == null) {
@@ -52,14 +55,13 @@ public class LoginController {
             model.addAttribute("role", loginDTO.getRoleId());
             List<Resource> resources = resourceService.listResourceByRoleId(loginDTO.getRoleId());
             model.addAttribute("resources", resources);
-
             HashSet<String> module = this.resourceService.convert(resources);
             session.setAttribute("module", module);
+            return Response.ok(loginDTO.getPath());
         } else {
             attributes.addFlashAttribute("error", error);
-            return loginDTO.getError();
+            return Response.failed(error);
         }
-        return loginDTO.getPath();
     }
 
     /**
@@ -67,8 +69,11 @@ public class LoginController {
      */
     @PutMapping("/logout")
     @ResponseBody
-    public String logout(HttpSession session) {
+    public Response<String> logout(HttpSession session) {
+        if (session.getAttribute("account") == null) {
+            return Response.failed("尚未登录");
+        }
         session.invalidate();
-        return "redirect:/auth/login";
+        return Response.ok("redirect:/auth/login");
     }
 }

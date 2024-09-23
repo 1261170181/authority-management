@@ -61,7 +61,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public LoginDTO login(String username, String password) {
         LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setPath("redirect:/");
+        loginDTO.setPath("redirect:/auth/login");
 
         Account account = lambdaQuery().eq(Account::getUsername, username).one();
         if (account == null) {
@@ -79,7 +79,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         AccountRole accountRole = accountRoleMapper.findByAccountId(account.getAccountId());
         loginDTO.setAccount(account);
         loginDTO.setRoleId(accountRole.getRoleId());
-        loginDTO.setPath("main");
+        loginDTO.setPath("redirect:/main");
         return loginDTO;
     }
 

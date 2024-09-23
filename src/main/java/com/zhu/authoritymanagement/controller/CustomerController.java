@@ -2,10 +2,10 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zhu.authoritymanagement.dto.CustomerDTO;
 import com.zhu.authoritymanagement.entity.Customer;
 import com.zhu.authoritymanagement.service.ICustomerService;
 import com.zhu.authoritymanagement.util.Response;
+import com.zhu.authoritymanagement.vo.CustomerVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,7 +31,7 @@ public class CustomerController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public Response<List<CustomerDTO>> listCustomer() {
+    public Response<List<CustomerVO>> listCustomer() {
         return Response.ok(customerService.listCustomer());
     }
 

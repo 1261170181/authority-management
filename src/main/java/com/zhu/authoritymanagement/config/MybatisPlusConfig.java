@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- *
  * MP配置类
  *
  * @author Zhu
@@ -23,6 +22,7 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
+    @Bean
     public MySqlInjector sqlInjector() {
         return new MySqlInjector();
     }

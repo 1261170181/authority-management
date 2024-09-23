@@ -7,6 +7,7 @@ import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
+import com.zhu.authoritymanagement.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,8 @@ public class RoleController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public Response<List<Role>> listRole() {
-        return Response.ok(roleService.list());
+    public Response<List<RoleVO>> listRole() {
+        return Response.ok(roleService.listRole());
     }
 
     /**

@@ -1,8 +1,8 @@
 package com.zhu.authoritymanagement.dto;
 
 import lombok.Data;
+
 /**
- *
  * 账号信息
  *
  * @author Zhu

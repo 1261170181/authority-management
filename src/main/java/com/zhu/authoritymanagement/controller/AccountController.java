@@ -70,7 +70,12 @@ public class AccountController {
             return Response.failed("用户名重复");
         }
         accountService.setPasswordAndSalt(account);
-        return Response.buildResult(accountService.save(account));
+        boolean result = accountService.save(account);
+        if (result) {
+            long id = account.getAccountId();
+            accountService.setRoleAccount(id, 2L);
+        }
+        return Response.buildResult(result);
     }
 
     /**

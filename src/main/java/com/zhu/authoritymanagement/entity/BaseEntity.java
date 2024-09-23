@@ -7,8 +7,8 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 /**
- *
  * 基础实体类
  *
  * @author Zhu
@@ -19,25 +19,25 @@ public class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 修改时间
      */
-    @TableField(value = "modified_time",fill = FieldFill.UPDATE)
+    @TableField(value = "modified_time", fill = FieldFill.UPDATE)
     private LocalDateTime modifiedTime;
 
     /**
      * 创建人
      */
-    @TableField(value = "create_account_id",fill = FieldFill.INSERT)
+    @TableField(value = "create_account_id", fill = FieldFill.INSERT)
     private Long createAccountId;
 
     /**
      * 修改人
      */
-    @TableField(value = "modified_account_id",fill = FieldFill.UPDATE)
+    @TableField(value = "modified_account_id", fill = FieldFill.UPDATE)
     private Long modifiedAccountId;
 
     /**

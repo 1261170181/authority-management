@@ -1,7 +1,10 @@
 package com.zhu.authoritymanagement.service;
 
-import com.zhu.authoritymanagement.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhu.authoritymanagement.entity.Role;
+import com.zhu.authoritymanagement.vo.RoleVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +18,7 @@ public interface IRoleService extends IService<Role> {
 
     /**
      * 保存角色
+     *
      * @param role 角色
      * @return 是否保存成功
      */
@@ -22,9 +26,17 @@ public interface IRoleService extends IService<Role> {
 
     /**
      * 更新角色
+     *
      * @param role 角色
      * @return 是否更新成功
      */
     boolean updateRole(Role role);
+
+    /**
+     * 获取角色列表
+     *
+     * @return 角色列表
+     */
+    List<RoleVO> listRole();
 
 }

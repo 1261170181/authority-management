@@ -10,8 +10,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.format.DateTimeFormatter;
+
 /**
- *
  * WebMvc配置类
  *
  * @author Zhu

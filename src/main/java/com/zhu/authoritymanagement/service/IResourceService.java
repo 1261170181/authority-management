@@ -18,6 +18,7 @@ public interface IResourceService extends IService<Resource> {
 
     /**
      * 查询对应角色所具有的资源
+     *
      * @param roleId 角色id
      * @return 资源列表
      */
@@ -25,6 +26,7 @@ public interface IResourceService extends IService<Resource> {
 
     /**
      * 将资源列表转换为资源名称集合
+     *
      * @param resources 资源列表
      * @return 资源名称集合
      */

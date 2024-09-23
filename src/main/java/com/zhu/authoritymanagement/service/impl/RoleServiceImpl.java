@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.entity.Role;
@@ -8,12 +9,14 @@ import com.zhu.authoritymanagement.mapper.RoleMapper;
 import com.zhu.authoritymanagement.mapper.RoleResourceMapper;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhu.authoritymanagement.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -45,8 +48,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
                 roleResources.add(roleResource);
             }
             roleResourceMapper.insertBatchSomeColumn(roleResources);
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     @Override
@@ -69,8 +74,25 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
                 roleResources.add(roleResource);
             }
             roleResourceMapper.insertBatchSomeColumn(roleResources);
+            return true;
+        } else {
+            return false;
         }
-        return true;
+    }
+
+    @Override
+    public List<RoleVO> listRole() {
+        LambdaQueryWrapper<Role> wrapper = Wrappers.<Role>lambdaQuery()
+                .select(Role::getRoleId, Role::getRoleName, Role::getRemark);
+        List<Role> roles = this.list(wrapper);
+
+        return roles.stream().map(role -> {
+            RoleVO roleVO = new RoleVO();
+            roleVO.setRoleId(role.getRoleId());
+            roleVO.setRoleName(role.getRoleName());
+            roleVO.setRemark(role.getRemark());
+            return roleVO;
+        }).collect(Collectors.toList());
     }
 
 }

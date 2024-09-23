@@ -20,8 +20,9 @@ public interface ResourceMapper extends BaseMapper<Resource> {
 
     /**
      * 查询资源列表
+     *
      * @param wrapper 查询条件
-     * @param roleId 角色id
+     * @param roleId  角色id
      * @return 资源列表
      */
     List<Resource> listResourceByRoleId(@Param(Constants.WRAPPER) QueryWrapper<Resource> wrapper, @Param("roleId") Long roleId);
