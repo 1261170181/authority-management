@@ -19,6 +19,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Response<Object> handleException(Exception e) {
         logger.error("服务器内部错误: ", e);
-        return Response.failed("服务器异常");
+        return Response.failed(e.getMessage());
+    }
+
+    @ExceptionHandler
+    public Object handler(NullPointerException e) {
+        return Response.failed("发⽣NullPointerException:"+e.getMessage());
+    }
+
+    @ExceptionHandler
+    public Object handler(ArithmeticException e) {
+        return Response.failed("发⽣ArithmeticException:"+e.getMessage());
     }
 }
