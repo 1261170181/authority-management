@@ -18,6 +18,4 @@ public class RoleVO {
     private String roleName;
 
     private String remark;
-
-    private List<Long> resourceIds;
 }

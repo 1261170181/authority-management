@@ -1,6 +1,6 @@
 package com.zhu.authoritymanagement.service;
 
-import com.zhu.authoritymanagement.dto.AccountDTO;
+import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -55,5 +55,5 @@ public interface IAccountService extends IService<Account> {
      *
      * @return 账号列表
      */
-    List<AccountDTO> listAccount();
+    List<AccountVO> listAccount();
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.lang.UUID;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zhu.authoritymanagement.dto.AccountDTO;
+import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
@@ -34,16 +34,16 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     private AccountRoleMapper accountRoleMapper;
 
     @Override
-    public List<AccountDTO> listAccount() {
+    public List<AccountVO> listAccount() {
         LambdaQueryWrapper<Account> wrapper = Wrappers.<Account>lambdaQuery()
                 .select(Account::getAccountId, Account::getUsername);
         List<Account> accounts = this.list(wrapper);
 
         return accounts.stream().map(account -> {
-            AccountDTO dto = new AccountDTO();
-            dto.setId(account.getAccountId());
-            dto.setUsername(account.getUsername());
-            return dto;
+            AccountVO accountVO = new AccountVO();
+            accountVO.setId(account.getAccountId());
+            accountVO.setUsername(account.getUsername());
+            return accountVO;
         }).collect(Collectors.toList());
     }
 

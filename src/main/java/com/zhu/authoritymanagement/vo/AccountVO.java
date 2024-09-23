@@ -1,4 +1,4 @@
-package com.zhu.authoritymanagement.dto;
+package com.zhu.authoritymanagement.vo;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2024-9-18
  */
 @Data
-public class AccountDTO {
+public class AccountVO {
 
     private Long id;
 

@@ -2,7 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zhu.authoritymanagement.dto.AccountDTO;
+import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
 import com.zhu.authoritymanagement.service.IAccountRoleService;
@@ -53,8 +53,8 @@ public class AccountController {
      */
     @GetMapping("/list")
     @ResponseBody
-    public Response<List<AccountDTO>> listAccount() {
-        List<AccountDTO> accountDTO = accountService.listAccount();
+    public Response<List<AccountVO>> listAccount() {
+        List<AccountVO> accountDTO = accountService.listAccount();
         return Response.ok(accountDTO);
     }
 
