@@ -24,6 +24,8 @@ public class ResourceController {
 
     private IResourceService resourceService;
 
+    public final static String CUTOFF="/";
+
     @Autowired
     public void setResourceService(IResourceService resourceService) {
         this.resourceService = resourceService;
@@ -48,7 +50,7 @@ public class ResourceController {
         if (resourceService.count(queryWrapper) > 0) {
             return Response.failed("权限内容重复");
         }
-        if (!resource.getUrl().endsWith("/")) {
+        if (!resource.getUrl().endsWith(CUTOFF)) {
             return Response.failed("Url必须以/结尾");
         }
         return Response.buildResult(resourceService.save(resource));

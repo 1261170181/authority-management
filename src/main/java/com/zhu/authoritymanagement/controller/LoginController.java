@@ -45,7 +45,8 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public Response<String> login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
-        if (session.getAttribute("account") != null) {
+        Object currentAccount =session.getAttribute("account");
+        if (currentAccount == null) {
             return Response.failed("请勿重复登录！");
         }
         LoginDTO loginDTO = accountService.login(account.getUsername(), account.getPassword());
@@ -70,7 +71,8 @@ public class LoginController {
     @PutMapping("/logout")
     @ResponseBody
     public Response<String> logout(HttpSession session) {
-        if (session.getAttribute("account") == null) {
+        Object currentAccount =session.getAttribute("account");
+        if (currentAccount == null) {
             return Response.failed("尚未登录");
         }
         session.invalidate();

@@ -24,10 +24,11 @@ public class MyInterceptor implements HandlerInterceptor {
         if (index != -1) {
             subString = subString.substring(0, index);
         }
+        @SuppressWarnings("unchecked")
         HashSet<String> urls = (HashSet<String>) request.getSession().getAttribute("module");
-        boolean result = urls.stream().anyMatch(subString::equals);
+        boolean result = urls != null && urls.stream().anyMatch(subString::equals);
         if (!result) {
-            response.sendRedirect("/");
+            response.sendRedirect("/error");
         }
         return result;
     }
