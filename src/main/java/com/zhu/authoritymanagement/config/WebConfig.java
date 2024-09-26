@@ -39,12 +39,4 @@ public class WebConfig implements WebMvcConfigurer {
         };
     }
 
-    /**
-     * 拦截器的配置
-     */
-    /**@Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/auth/login", "/auth/logout", "/error");
-    }*/
 }

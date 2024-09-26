@@ -52,9 +52,7 @@ public class MyRealm extends AuthorizingRealm {
                 // Permission information
                 List<Resource> resources = resourceService.listResourceByRoleId(roleVO.getRoleId());
                 if (!CollectionUtils.isEmpty(resources)) {
-                    resources.forEach(resource -> {
-                        simpleAuthorizationInfo.addStringPermission(resource.getUrl());
-                    });
+                    resources.forEach(resource -> simpleAuthorizationInfo.addStringPermission(resource.getUrl()));
                 }
             });
             return simpleAuthorizationInfo;
