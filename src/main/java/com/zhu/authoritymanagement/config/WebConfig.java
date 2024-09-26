@@ -2,11 +2,9 @@ package com.zhu.authoritymanagement.config;
 
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.zhu.authoritymanagement.mp.MyInterceptor;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.format.DateTimeFormatter;
@@ -44,9 +42,9 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * 拦截器的配置
      */
-    @Override
+    /**@Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/auth/login", "/auth/logout", "/error");
-    }
+    }*/
 }

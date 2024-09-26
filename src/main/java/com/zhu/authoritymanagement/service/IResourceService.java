@@ -3,7 +3,6 @@ package com.zhu.authoritymanagement.service;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -24,11 +23,4 @@ public interface IResourceService extends IService<Resource> {
      */
     List<Resource> listResourceByRoleId(Long roleId);
 
-    /**
-     * 将资源列表转换为资源名称集合
-     *
-     * @param resources 资源列表
-     * @return 资源名称集合
-     */
-    HashSet<String> convert(List<Resource> resources);
 }

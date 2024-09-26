@@ -7,13 +7,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.mapper.RoleMapper;
 import com.zhu.authoritymanagement.vo.AccountVO;
-import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
 import com.zhu.authoritymanagement.mapper.AccountMapper;
 import com.zhu.authoritymanagement.mapper.AccountRoleMapper;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhu.authoritymanagement.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,31 +79,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
     @Override
-    public LoginDTO login(String username, String password) {
-        LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setPath("redirect:/auth/login");
-
-        Account account = lambdaQuery().eq(Account::getUsername, username).one();
-        if (account == null) {
-            loginDTO.setError("用户不存在");
-            return loginDTO;
-        }
-
-        MD5 md5 = new MD5(account.getSalt().getBytes());
-        String digestHex = md5.digestHex(password);
-        if (!digestHex.equals(account.getPassword())) {
-            loginDTO.setError("密码错误");
-            return loginDTO;
-        }
-
-        AccountRole accountRole = accountRoleMapper.findByAccountId(account.getAccountId());
-        loginDTO.setAccount(account);
-        loginDTO.setRoleId(accountRole.getRoleId());
-        loginDTO.setPath("redirect:/main");
-        return loginDTO;
-    }
-
-    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean setRoleAccount(Long id, Long roleId) {
         AccountRole accountRole = new AccountRole();
@@ -120,5 +95,25 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
                 .eq(AccountRole::getAccountId, id);
         int deleted = accountRoleMapper.delete(wrapper);
         return deleted > 0;
+    }
+
+    @Override
+    public List<RoleVO> findRolesByUsername(String username) {
+        Account account = lambdaQuery().eq(Account::getUsername, username).one();
+        if (account == null) {
+            return null;
+        }
+
+        List<AccountRole> accountRoles = accountRoleMapper.selectList(
+                Wrappers.<AccountRole>lambdaQuery().eq(AccountRole::getAccountId, account.getAccountId())
+        );
+
+        return accountRoles.stream().map(accountRole -> {
+            Role role = roleMapper.selectById(accountRole.getRoleId());
+            RoleVO roleVO = new RoleVO();
+            roleVO.setRoleId(role.getRoleId());
+            roleVO.setRoleName(role.getRoleName());
+            return roleVO;
+        }).collect(Collectors.toList());
     }
 }

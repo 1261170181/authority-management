@@ -1,6 +1,5 @@
 package com.zhu.authoritymanagement.config;
 
-import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.shiro.MyRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -50,12 +49,18 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> map = new HashMap<>();
-        /**
-         * anon: 无需认证就可以访问
-         * authc: 必须认证了才能访问
+        /*
+          anon: 无需认证就可以访问
+          authc: 必须认证了才能访问
+          perms: 拥有对某个资源的权限才能访问
+          roles: 拥有某个角色权限才能访问
          */
         map.put("/auth/**", "anon");
         map.put("/**", "authc");
+        map.put("/account/**","perms[account/]");
+        map.put("/role/**","perms[role/]");
+        map.put("/resource/**","perms[resource/]");
+        map.put("/customer/**","perms[customer/]");
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;

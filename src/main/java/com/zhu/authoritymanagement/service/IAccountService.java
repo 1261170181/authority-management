@@ -1,9 +1,9 @@
 package com.zhu.authoritymanagement.service;
 
 import com.zhu.authoritymanagement.vo.AccountVO;
-import com.zhu.authoritymanagement.dto.LoginDTO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhu.authoritymanagement.vo.RoleVO;
 
 import java.util.List;
 
@@ -23,15 +23,6 @@ public interface IAccountService extends IService<Account> {
      * @param account 账号
      */
     void setPasswordAndSalt(Account account);
-
-    /**
-     * 登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return 登录信息
-     */
-    LoginDTO login(String username, String password);
 
     /**
      * 设置账号对应角色
@@ -56,4 +47,12 @@ public interface IAccountService extends IService<Account> {
      * @return 账号列表
      */
     List<AccountVO> listAccount();
+
+    /**
+     * 根据用户名查找对应角色
+     *
+     * @param username 用户名
+     * @return 登录成功返回true，否则返回false
+     */
+    List<RoleVO> findRolesByUsername(String username);
 }
