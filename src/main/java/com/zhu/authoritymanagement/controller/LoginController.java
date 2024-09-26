@@ -7,6 +7,11 @@ import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.util.Response;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,24 +51,18 @@ public class LoginController {
     @ControllerWebLog(name = "登录")
     @PostMapping("/login")
     @ResponseBody
-    public Response<String> login(@RequestBody Account account, HttpSession session, RedirectAttributes attributes, Model model) {
-        Object currentAccount =session.getAttribute("account");
-        if (currentAccount != null) {
-            return Response.failed("请勿重复登录！");
-        }
-        LoginDTO loginDTO = accountService.login(account.getUsername(), account.getPassword());
-        String error = loginDTO.getError();
-        if (error == null) {
-            session.setAttribute("account", loginDTO.getAccount());
-            model.addAttribute("role", loginDTO.getRoleId());
-            List<Resource> resources = resourceService.listResourceByRoleId(loginDTO.getRoleId());
-            model.addAttribute("resources", resources);
-            HashSet<String> module = this.resourceService.convert(resources);
-            session.setAttribute("module", module);
-            return Response.ok(loginDTO.getPath());
-        } else {
-            attributes.addFlashAttribute("error", error);
-            return Response.failed(error);
+    public Response<String> login(@RequestBody Account account,HttpSession session) {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(account.getUsername(), account.getPassword());
+        try {
+            subject.login(token);
+            session.setAttribute("user", token.getPrincipal());
+            return Response.ok(null);
+        } catch (Exception e) {
+            if (e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException) {
+                return Response.failed("用户名或密码错误");
+            }
+            return Response.failed("登录失败");
         }
     }
 
