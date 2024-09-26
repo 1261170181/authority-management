@@ -56,7 +56,7 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(account.getUsername(), account.getPassword());
         try {
             subject.login(token);
-            session.setAttribute("user", token.getPrincipal());
+            session.setAttribute("account", token.getPrincipal());
             return Response.ok(null);
         } catch (Exception e) {
             if (e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException) {
@@ -73,11 +73,11 @@ public class LoginController {
     @PutMapping("/logout")
     @ResponseBody
     public Response<String> logout(HttpSession session) {
-        Object currentAccount =session.getAttribute("account");
-        if (currentAccount == null) {
+        Subject subject = SecurityUtils.getSubject();
+        if (!subject.isAuthenticated()) {
             return Response.failed("尚未登录");
         }
-        session.invalidate();
+        subject.logout();
         return Response.ok("redirect:/auth/login");
     }
 }

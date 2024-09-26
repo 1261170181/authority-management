@@ -20,8 +20,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyRealm extends AuthorizingRealm {
 
-    @Autowired
     private IAccountService accountService;
+
+    @Autowired
+    public void setAccountService(IAccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {

@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.config;
 
+import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.shiro.MyRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -20,32 +21,41 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Autowired
     private MyRealm myRealm;
 
-    //创建安全管理器
+    @Autowired
+    public void setMyRealm(MyRealm myRealm) {
+        this.myRealm = myRealm;
+    }
+
+    /**
+     * 创建加密对象,指定加密策略
+     */
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        //创建加密对象,指定加密策略
         HashedCredentialsMatcher matcher=new HashedCredentialsMatcher();
         matcher.setHashAlgorithmName("md5");
-        matcher.setHashIterations(6);
+        matcher.setHashIterations(1);
         myRealm.setCredentialsMatcher(matcher);
         securityManager.setRealm(myRealm);
         return securityManager;
     }
 
-    //配置Shiro过滤器
+    /**
+     * 配置Shiro过滤器
+     */
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        //给ShiroFilter配置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> map = new HashMap<>();
-        //配置系统公共资源
-        map.put("/auth/**", "anon");//anon表示这个资源无需认证//配置系统受限资源
-        map.put("/**", "authc");//authc表示这个资源需要认证和授权
+        /**
+         * anon: 无需认证就可以访问
+         * authc: 必须认证了才能访问
+         */
+        map.put("/auth/**", "anon");
+        map.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
