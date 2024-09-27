@@ -2,6 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.service.IResourceService;
@@ -44,12 +45,17 @@ public class RoleController {
     /**
      * 获取角色列表
      */
+    @ControllerWebLog(name = "查询角色列表")
     @GetMapping("/list")
     @ResponseBody
     public Response<List<RoleVO>> listRole() {
         return Response.ok(roleService.listRole());
     }
 
+    /**
+     * 获取角色详情
+     */
+    @ControllerWebLog(name = "角色详情")
     @GetMapping("/detail")
     @ResponseBody
     public Response<List<Role>> detailRole() {
@@ -59,6 +65,7 @@ public class RoleController {
     /**
      * 添加角色
      */
+    @ControllerWebLog(name = "添加角色")
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addRole(@RequestBody Role role) {
@@ -73,6 +80,7 @@ public class RoleController {
     /**
      * 更新角色信息
      */
+    @ControllerWebLog(name = "更新角色")
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateRole(@PathVariable Long id, @RequestBody Role role) {
@@ -97,6 +105,7 @@ public class RoleController {
     /**
      * 删除角色
      */
+    @ControllerWebLog(name = "删除角色")
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteRole(@PathVariable Long id, HttpSession session) {

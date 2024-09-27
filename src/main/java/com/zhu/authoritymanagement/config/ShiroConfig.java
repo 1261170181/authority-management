@@ -62,6 +62,7 @@ public class ShiroConfig {
         map.put("/resource/**","perms[resource/]");
         map.put("/customer/**","perms[customer/]");
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

@@ -2,6 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.util.Response;
@@ -31,12 +32,20 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
+    /**
+     * 查询权限列表
+     */
+    @ControllerWebLog(name = "查询权限列表")
     @GetMapping("/list")
     @ResponseBody
     public Response<List<Resource>> listResource() {
         return Response.ok(resourceService.list());
     }
 
+    /**
+     * 添加权限
+     */
+    @ControllerWebLog(name = "添加权限")
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addResource(@RequestBody Resource resource) {
@@ -56,6 +65,10 @@ public class ResourceController {
         return Response.buildResult(resourceService.save(resource));
     }
 
+    /**
+     * 更新权限
+     */
+    @ControllerWebLog(name = "更新权限")
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateResource(@PathVariable Long id, @RequestBody Resource resource) {
@@ -66,6 +79,10 @@ public class ResourceController {
         return Response.buildResult(resourceService.updateById(resource));
     }
 
+    /**
+     * 删除权限
+     */
+    @ControllerWebLog(name = "删除权限")
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteResource(@PathVariable Long id) {

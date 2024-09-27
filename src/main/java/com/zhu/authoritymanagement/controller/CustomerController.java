@@ -2,6 +2,7 @@ package com.zhu.authoritymanagement.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.entity.Customer;
 import com.zhu.authoritymanagement.service.ICustomerService;
 import com.zhu.authoritymanagement.util.Response;
@@ -29,6 +30,7 @@ public class CustomerController {
     /**
      * 获取客户列表
      */
+    @ControllerWebLog(name = "查询客户列表")
     @GetMapping("/list")
     @ResponseBody
     public Response<List<CustomerVO>> listCustomer() {
@@ -38,6 +40,7 @@ public class CustomerController {
     /**
      * 获取客户详情
      */
+    @ControllerWebLog(name = "客户详情")
     @GetMapping("/detail")
     @ResponseBody
     public Response<List<Customer>> detailCustomer() {
@@ -47,6 +50,7 @@ public class CustomerController {
     /**
      * 添加客户
      */
+    @ControllerWebLog(name = "添加客户")
     @PostMapping("/add")
     @ResponseBody
     public Response<Object> addCustomer(@RequestBody Customer customer) {
@@ -63,6 +67,7 @@ public class CustomerController {
     /**
      * 更新客户信息
      */
+    @ControllerWebLog(name = "更新客户信息")
     @PutMapping("/update/{id}")
     @ResponseBody
     public Response<Object> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
@@ -76,6 +81,7 @@ public class CustomerController {
     /**
      * 删除客户
      */
+    @ControllerWebLog(name = "删除客户")
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Response<Object> deleteCustomer(@PathVariable Long id) {
