@@ -19,6 +19,11 @@ import java.util.List;
 @InterceptorIgnore(dataPermission = "true")
 public interface AccountMapper extends BaseMapper<Account> {
 
+    /**
+     * 查询账号列表
+     *
+     * @return 账号列表
+     */
     @InterceptorIgnore(dataPermission = "false")
     @Select("SELECT a.account_id AS id, a.username, r.role_name " +
             "FROM account a " +

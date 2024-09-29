@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.zhu.authoritymanagement.entity.Customer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
-
 /**
  * <p>
  * 客户表 Mapper 接口
