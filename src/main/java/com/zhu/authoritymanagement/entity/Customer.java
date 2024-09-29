@@ -45,4 +45,5 @@ public class Customer extends BaseEntity {
      */
     @TableField("age")
     private Byte age;
+
 }

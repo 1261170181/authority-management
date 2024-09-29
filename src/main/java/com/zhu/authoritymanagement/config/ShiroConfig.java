@@ -56,11 +56,11 @@ public class ShiroConfig {
           roles: 拥有某个角色权限才能访问
          */
         map.put("/auth/**", "anon");
-        map.put("/**", "authc");
         map.put("/account/**","perms[account/]");
         map.put("/role/**","perms[role/]");
         map.put("/resource/**","perms[resource/]");
         map.put("/customer/**","perms[customer/]");
+        map.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);

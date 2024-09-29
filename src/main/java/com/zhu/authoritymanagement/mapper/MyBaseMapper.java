@@ -1,6 +1,7 @@
 package com.zhu.authoritymanagement.mapper;
 
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.Collection;
  * @author Zhu
  * @since 2024-9-18
  */
+@InterceptorIgnore(dataPermission = "true")
 public interface MyBaseMapper<T> extends BaseMapper<T> {
 
     /**

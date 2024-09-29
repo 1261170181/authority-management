@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.zhu.authoritymanagement.entity.AccountRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @author zhu
  * @since 2024-09-12
  */
+@InterceptorIgnore(dataPermission = "true")
 public interface AccountRoleMapper extends BaseMapper<AccountRole> {
     /**
      * 根据账号id查询用户角色

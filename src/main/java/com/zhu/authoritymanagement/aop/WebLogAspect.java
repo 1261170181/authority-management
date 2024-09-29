@@ -44,6 +44,7 @@ public class WebLogAspect {
         HttpServletRequest request = sra.getRequest();
 
         Map<String, Object> threadInfo = new HashMap<>(16);
+        logger.info("切面日志====================");
         logger.info("URL : {}", request.getRequestURL());
         threadInfo.put("url", request.getRequestURL());
         logger.info("URI : {}", request.getRequestURI());

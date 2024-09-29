@@ -36,6 +36,8 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     private RoleMapper roleMapper;
 
+    private AccountMapper accountMapper;
+
     @Autowired
     public void setAccountRoleMapper(AccountRoleMapper accountRoleMapper) {
         this.accountRoleMapper = accountRoleMapper;
@@ -46,25 +48,14 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         this.roleMapper = roleMapper;
     }
 
+    @Autowired
+    public void setAccountMapper(AccountMapper accountMapper) {
+        this.accountMapper = accountMapper;
+    }
+
     @Override
     public List<AccountVO> listAccount() {
-        LambdaQueryWrapper<Account> wrapper = Wrappers.<Account>lambdaQuery()
-                .select(Account::getAccountId, Account::getUsername);
-        List<Account> accounts = this.list(wrapper);
-
-        return accounts.stream().map(account -> {
-            AccountVO accountVO = new AccountVO();
-            accountVO.setId(account.getAccountId());
-            accountVO.setUsername(account.getUsername());
-            AccountRole accountRole = accountRoleMapper.findByAccountId(account.getAccountId());
-            if (accountRole != null) {
-                Role role = roleMapper.selectById(accountRole.getRoleId());
-                if (role != null) {
-                    accountVO.setRoleName(role.getRoleName());
-                }
-            }
-            return accountVO;
-        }).collect(Collectors.toList());
+        return accountMapper.listAccount();
     }
 
     @Override

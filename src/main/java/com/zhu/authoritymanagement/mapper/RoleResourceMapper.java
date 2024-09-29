@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.zhu.authoritymanagement.entity.RoleResource;
 
 /**
@@ -10,5 +11,6 @@ import com.zhu.authoritymanagement.entity.RoleResource;
  * @author zhu
  * @since 2024-09-12
  */
+@InterceptorIgnore(dataPermission = "true")
 public interface RoleResourceMapper extends MyBaseMapper<RoleResource> {
 }

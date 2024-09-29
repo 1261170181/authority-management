@@ -1,5 +1,6 @@
 package com.zhu.authoritymanagement.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.zhu.authoritymanagement.entity.Resource;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author zhu
  * @since 2024-09-12
  */
+@InterceptorIgnore(dataPermission = "true")
 public interface ResourceMapper extends BaseMapper<Resource> {
 
     /**
