@@ -15,11 +15,15 @@ public class DataPermissionContextHandler {
         if(Objects.isNull(CONTEXT.get())) {
             synchronized (DataPermissionContextHandler.class) {
                 if(Objects.isNull(CONTEXT.get())) {
-                    Map dataContext = new HashMap();
+                    Map dataContext = new HashMap(16);
                     CONTEXT.set(dataContext);
                 }
             }
         }
         return CONTEXT.get();
+    }
+
+    public static void remove() {
+        CONTEXT.remove();
     }
 }

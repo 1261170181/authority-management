@@ -2,9 +2,6 @@ package com.zhu.authoritymanagement.service.impl;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.crypto.digest.MD5;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.mapper.RoleMapper;
 import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.entity.Account;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -34,18 +30,11 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     private AccountRoleMapper accountRoleMapper;
 
-    private RoleMapper roleMapper;
-
     private AccountMapper accountMapper;
 
     @Autowired
     public void setAccountRoleMapper(AccountRoleMapper accountRoleMapper) {
         this.accountRoleMapper = accountRoleMapper;
-    }
-
-    @Autowired
-    public void setRoleMapper(RoleMapper roleMapper) {
-        this.roleMapper = roleMapper;
     }
 
     @Autowired
@@ -82,29 +71,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteRoleAccount(Long id) {
-        LambdaQueryWrapper<AccountRole> wrapper = Wrappers.<AccountRole>lambdaQuery()
-                .eq(AccountRole::getAccountId, id);
-        int deleted = accountRoleMapper.delete(wrapper);
+        int deleted = accountRoleMapper.deleteRoleAccount(id);
         return deleted > 0;
     }
 
     @Override
     public List<RoleVO> findRolesByUsername(String username) {
-        Account account = lambdaQuery().eq(Account::getUsername, username).one();
-        if (account == null) {
-            return null;
-        }
-
-        List<AccountRole> accountRoles = accountRoleMapper.selectList(
-                Wrappers.<AccountRole>lambdaQuery().eq(AccountRole::getAccountId, account.getAccountId())
-        );
-
-        return accountRoles.stream().map(accountRole -> {
-            Role role = roleMapper.selectById(accountRole.getRoleId());
-            RoleVO roleVO = new RoleVO();
-            roleVO.setRoleId(role.getRoleId());
-            roleVO.setRoleName(role.getRoleName());
-            return roleVO;
-        }).collect(Collectors.toList());
+        return accountRoleMapper.findRolesByUsername(username);
     }
+
 }

@@ -1,7 +1,5 @@
 package com.zhu.authoritymanagement.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.entity.Resource;
 import com.zhu.authoritymanagement.mapper.ResourceMapper;
 import com.zhu.authoritymanagement.service.IResourceService;
@@ -23,9 +21,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     public List<Resource> listResourceByRoleId(Long roleId) {
-        QueryWrapper<Resource> query = Wrappers.query();
-        query.eq("rr.role_id", roleId);
-        return baseMapper.listResourceByRoleId(query, roleId);
+        return baseMapper.listResourceByRoleId(roleId);
     }
 
 }

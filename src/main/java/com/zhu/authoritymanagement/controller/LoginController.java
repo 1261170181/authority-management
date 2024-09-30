@@ -2,15 +2,12 @@ package com.zhu.authoritymanagement.controller;
 
 import com.zhu.authoritymanagement.aop.ControllerWebLog;
 import com.zhu.authoritymanagement.entity.Account;
-import com.zhu.authoritymanagement.service.IAccountService;
-import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.util.Response;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,20 +22,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("auth")
 public class LoginController {
-
-    private IAccountService accountService;
-
-    private IResourceService resourceService;
-
-    @Autowired
-    public void setAccountService(IAccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    @Autowired
-    public void setResourceService(IResourceService resourceService) {
-        this.resourceService = resourceService;
-    }
 
     /**
      * 登录

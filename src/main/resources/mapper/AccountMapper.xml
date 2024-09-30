@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhu.authoritymanagement.mapper.AccountMapper">
 
+    <select id="listAccount" resultType="com.zhu.authoritymanagement.vo.AccountVO">
+        SELECT a.account_id AS id, a.username, r.role_name
+        FROM account a
+                 LEFT JOIN account_role ar ON a.account_id = ar.account_id
+                 LEFT JOIN role r ON ar.role_id = r.role_id
+    </select>
+
 </mapper>

@@ -36,6 +36,7 @@ public class CustomDataPermissionHandler implements MultiDataPermissionHandler {
         if (where==null) {
             where = new EqualsTo(new Column("1"),new LongValue(1));
         }
+        DataPermissionContextHandler.remove();
         return new AndExpression(where, expression);
     }
 }

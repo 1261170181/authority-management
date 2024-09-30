@@ -1,12 +1,9 @@
 package com.zhu.authoritymanagement.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.entity.RoleResource;
 import com.zhu.authoritymanagement.mapper.RoleMapper;
-import com.zhu.authoritymanagement.mapper.RoleResourceMapper;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhu.authoritymanagement.vo.RoleVO;
@@ -16,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -29,75 +25,48 @@ import java.util.stream.Collectors;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-    private RoleResourceMapper roleResourceMapper;
+    private RoleMapper roleMapper;
 
     @Autowired
-    public void setRoleResourceMapper(RoleResourceMapper roleResourceMapper) {
-        this.roleResourceMapper = roleResourceMapper;
+    public void setRoleMapper(RoleMapper roleMapper) {
+        this.roleMapper = roleMapper;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveRole(Role role) {
-        save(role);
-
-        Long roleId = role.getRoleId();
-        List<Long> resourceIds = role.getResourceIds();
-
-        if (CollectionUtils.isNotEmpty(resourceIds)) {
-            List<RoleResource> roleResources = new ArrayList<>();
-            for (Long resourceId : resourceIds) {
-                RoleResource roleResource = new RoleResource();
-                roleResource.setRoleId(roleId);
-                roleResource.setResourceId(resourceId);
-                roleResources.add(roleResource);
-            }
-            roleResourceMapper.insertBatchSomeColumn(roleResources);
-            return true;
-        } else {
-            return false;
-        }
+        List<RoleResource> roleResources = createRoleResources(role);
+        roleMapper.saveRole(role, roleResources);
+        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateRole(Role role) {
-        Long roleId = role.getRoleId();
+        List<RoleResource> roleResources = createRoleResources(role);
+        roleMapper.updateRole(role, roleResources);
+        return true;
+    }
 
-        updateById(role);
-
-        roleResourceMapper.delete(Wrappers.<RoleResource>lambdaQuery().eq(RoleResource::getRoleId, roleId));
-
+    private List<RoleResource> createRoleResources(Role role) {
         List<Long> resourceIds = role.getResourceIds();
+        List<RoleResource> roleResources = new ArrayList<>();
 
         if (CollectionUtils.isNotEmpty(resourceIds)) {
-            List<RoleResource> roleResources = new ArrayList<>();
             for (Long resourceId : resourceIds) {
                 RoleResource roleResource = new RoleResource();
-                roleResource.setRoleId(roleId);
+                roleResource.setRoleId(role.getRoleId());
                 roleResource.setResourceId(resourceId);
                 roleResources.add(roleResource);
             }
-            roleResourceMapper.insertBatchSomeColumn(roleResources);
-            return true;
-        } else {
-            return false;
         }
+
+        return roleResources;
     }
 
     @Override
     public List<RoleVO> listRole() {
-        LambdaQueryWrapper<Role> wrapper = Wrappers.<Role>lambdaQuery()
-                .select(Role::getRoleId, Role::getRoleName, Role::getRemark);
-        List<Role> roles = this.list(wrapper);
-
-        return roles.stream().map(role -> {
-            RoleVO roleVO = new RoleVO();
-            roleVO.setRoleId(role.getRoleId());
-            roleVO.setRoleName(role.getRoleName());
-            roleVO.setRemark(role.getRemark());
-            return roleVO;
-        }).collect(Collectors.toList());
+        return roleMapper.listRole();
     }
 
 }

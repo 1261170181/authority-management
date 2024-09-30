@@ -6,4 +6,16 @@
         SELECT * FROM account_role WHERE account_id = #{accountId}
     </select>
 
+    <delete id="deleteRoleAccount">
+        DELETE FROM account_role WHERE account_id = #{accountId}
+    </delete>
+
+    <select id="findRolesByUsername" resultType="com.zhu.authoritymanagement.vo.RoleVO">
+        SELECT r.role_id AS roleId, r.role_name AS roleName
+        FROM account_role ar
+                 JOIN role r ON ar.role_id = r.role_id
+                 JOIN account a ON ar.account_id = a.account_id
+        WHERE a.username = #{username}
+    </select>
+
 </mapper>

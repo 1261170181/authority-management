@@ -2,13 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhu.authoritymanagement.mapper.ResourceMapper">
 
-    <select id="listResourceByRoleId" resultType="Resource">
-        select DISTINCT
-            re.resource_id,
-            re.resource_name,
-            re.url
-        from resource re inner join role_resource rr
-                                    on re.resource_id = rr.resource_id and rr.role_id=#{roleId}
+    <insert id="saveRole">
+        INSERT INTO role (role_id, role_name, remark)
+        VALUES (#{role.roleId}, #{role.roleName}, #{role.remark});
+
+        <foreach collection="roleResources" item="roleResource" separator=";">
+            INSERT INTO role_resource (role_id, resource_id)
+            VALUES (#{roleResource.roleId}, #{roleResource.resourceId})
+        </foreach>
+    </insert>
+
+    <update id="updateRole">
+        UPDATE role
+        SET role_name = #{role.roleName}, remark = #{role.remark}
+        WHERE role_id = #{role.roleId};
+
+        DELETE FROM role_resource WHERE role_id = #{role.roleId};
+
+        <foreach collection="roleResources" item="roleResource" separator=";">
+            INSERT INTO role_resource (role_id, resource_id)
+            VALUES (#{roleResource.roleId}, #{roleResource.resourceId})
+        </foreach>
+    </update>
+
+    <select id="listResourceByRoleId" resultType="com.zhu.authoritymanagement.entity.Resource">
+        SELECT r.*
+        FROM resource r
+                 JOIN role_resource rr ON r.resource_id = rr.resource_id
+        WHERE rr.role_id = #{roleId}
     </select>
 
 </mapper>
