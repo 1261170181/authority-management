@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
+    <title>新增用户</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
         body {
@@ -15,14 +15,14 @@
             height: 100vh;
             margin: 0;
         }
-        .login-container {
+        .add-user-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .login-container h2 {
+        .add-user-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
@@ -57,9 +57,9 @@
     </style>
 </head>
 <body>
-<div class="login-container">
-    <h2>登录</h2>
-    <form th:action="@{/auth/login}" method="post">
+<div class="add-user-container">
+    <h2>新增用户</h2>
+    <form th:action="@{/account/add}" method="post">
         <div class="form-group">
             <label for="username">用户名:</label>
             <input type="text" id="username" name="username" required>
@@ -69,9 +69,10 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <button type="submit">登录</button>
+            <button type="submit">新增</button>
         </div>
     </form>
 </div>
 </body>
+
 </html>

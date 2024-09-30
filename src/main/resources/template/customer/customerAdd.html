@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增用户</title>
+    <title>新增客户</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
         body {
@@ -15,14 +15,14 @@
             height: 100vh;
             margin: 0;
         }
-        .add-user-container {
+        .add-customer-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .add-user-container h2 {
+        .add-customer-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
@@ -57,16 +57,20 @@
     </style>
 </head>
 <body>
-<div class="add-user-container">
-    <h2>新增用户</h2>
-    <form th:action="@{/account/add}" method="post">
+<div class="add-customer-container">
+    <h2>新增客户</h2>
+    <form th:action="@{/customer/add}" method="post">
         <div class="form-group">
-            <label for="username">用户名:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="password">密码:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="sex">性别:</label>
+            <input type="text" id="sex" name="sex" required>
+        </div>
+        <div class="form-group">
+            <label for="age">年龄:</label>
+            <input type="number" id="age" name="age" required>
         </div>
         <div class="form-group">
             <button type="submit">新增</button>
