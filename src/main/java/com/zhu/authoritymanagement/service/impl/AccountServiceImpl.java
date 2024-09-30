@@ -2,7 +2,6 @@ package com.zhu.authoritymanagement.service.impl;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.crypto.digest.MD5;
-import com.zhu.authoritymanagement.mapper.RoleMapper;
 import com.zhu.authoritymanagement.vo.AccountVO;
 import com.zhu.authoritymanagement.entity.Account;
 import com.zhu.authoritymanagement.entity.AccountRole;
