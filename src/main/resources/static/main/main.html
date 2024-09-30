@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户主页</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .profile {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile h2 {
+            margin-top: 0;
+        }
+        .profile p {
+            margin: 5px 0;
+        }
+        .actions {
+            text-align: center;
+        }
+        .actions button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>欢迎，<span th:text="${username}">用户</span></h1>
+</div>
+<div class="container">
+    <div class="profile">
+        <h2>个人信息</h2>
+        <p>用户名: <span th:text="${username}">用户名</span></p>
+        <p>邮箱: <span th:text="${email}">邮箱</span></p>
+    </div>
+    <div class="actions">
+        <button th:onclick="|window.location.href='@{/editProfile}'|">编辑资料</button>
+        <button th:onclick="|window.location.href='@{/logout}'|">退出登录</button>
+    </div>
+</div>
+</body>
+</html>
