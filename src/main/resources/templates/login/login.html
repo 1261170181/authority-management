@@ -53,12 +53,22 @@
         .form-group button:hover {
             background-color: #0056b3;
         }
+        .error-message {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -150px);
+            width: 100%;
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 <div class="login-container">
     <h2>登录</h2>
-    <form id="loginForm">
+    <form th:action="@{/auth/doLogin}" method="post">
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
         <div class="form-group">
             <label for="username">用户名:</label>
             <input type="text" id="username" name="username" required>
@@ -68,39 +78,10 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <button type="button" onclick="submitForm()">登录</button>
+            <button type="submit">登录</button>
         </div>
     </form>
 </div>
-
-<script>
-    function submitForm() {
-        const form = document.getElementById('loginForm');
-        const data = {
-            username: form.username.value,
-            password: form.password.value
-        };
-
-        fetch('/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.data.startsWith('redirect:')) {
-                    window.location.href ='http://localhost:8080/' + data.data.substring(9);
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-</script>
 </body>
 
 </html>

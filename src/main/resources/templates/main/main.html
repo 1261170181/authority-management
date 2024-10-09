@@ -10,16 +10,44 @@
             background-color: #f0f2f5;
             margin: 0;
             padding: 0;
+            display: flex;
         }
-        .header {
-            background-color: #007bff;
+
+        .sidebar {
+            width: 200px;
+            background-color: #343a40;
             color: #fff;
-            padding: 10px 0;
-            text-align: center;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
         }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .sidebar .submenu {
+            display: none;
+            background-color: #495057;
+        }
+
+        .sidebar .submenu a {
+            padding-left: 30px;
+        }
+
         .container {
+            margin-left: 200px;
             padding: 20px;
+            width: 100%;
         }
+
         .profile {
             background-color: #fff;
             padding: 20px;
@@ -27,15 +55,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
+
         .profile h2 {
             margin-top: 0;
         }
+
         .profile p {
             margin: 5px 0;
         }
+
         .actions {
             text-align: center;
         }
+
         .actions button {
             padding: 10px 20px;
             background-color: #007bff;
@@ -46,23 +78,57 @@
             cursor: pointer;
             margin: 5px;
         }
+
         .actions button:hover {
             background-color: #0056b3;
         }
     </style>
+    <script>
+        function toggleSubmenu(id) {
+            var submenu = document.getElementById(id);
+            if (submenu.style.display === "block") {
+                submenu.style.display = "none";
+            } else {
+                submenu.style.display = "block";
+            }
+        }
+    </script>
 </head>
 <body>
-<div class="header">
-    <h1>欢迎，<span th:text="${username}">用户</span></h1>
+<div class="sidebar">
+    <a href="javascript:void(0)" onclick="toggleSubmenu('accountSubmenu')">账号管理</a>
+    <div id="accountSubmenu" class="submenu">
+        <a href="/account/list">账号列表</a>
+        <a href="/account/add">添加账号</a>
+        <a href="/account/update">更新账号</a>
+        <a href="/account/setrole">设置角色</a>
+        <a href="/account/delete">删除账号</a>
+    </div>
+    <a href="javascript:void(0)" onclick="toggleSubmenu('roleSubmenu')">角色管理</a>
+    <div id="roleSubmenu" class="submenu">
+        <a href="#">子选项1</a>
+        <a href="#">子选项2</a>
+    </div>
+    <a href="javascript:void(0)" onclick="toggleSubmenu('customerSubmenu')">客户管理</a>
+    <div id="customerSubmenu" class="submenu">
+        <a href="#">子选项1</a>
+        <a href="#">子选项2</a>
+    </div>
 </div>
 <div class="container">
+    <div class="header">
+        <h1>欢迎，<span th:text="${username}">用户</span></h1>
+    </div>
     <div class="profile">
         <h2>个人信息</h2>
         <p>用户名: <span th:text="${username}">用户名</span></p>
     </div>
     <div class="actions">
         <button th:onclick="|window.location.href='@{/editProfile}'|">编辑资料</button>
-        <button th:onclick="|window.location.href='@{/logout}'|">退出登录</button>
+        <form th:action="@{/auth/logout}" method="post" style="display:inline;">
+            <input type="hidden" name="_method" value="put">
+            <button type="submit">退出登录</button>
+        </form>
     </div>
 </div>
 </body>

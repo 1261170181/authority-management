@@ -55,14 +55,15 @@ public class ShiroConfig {
           perms: 拥有对某个资源的权限才能访问
           roles: 拥有某个角色权限才能访问
          */
-        map.put("/auth/**", "anon");
+        map.put("/auth/login", "anon");
+        map.put("/auth/doLogin", "anon");
         map.put("/account/**","perms[account/]");
         map.put("/role/**","perms[role/]");
         map.put("/resource/**","perms[resource/]");
         map.put("/customer/**","perms[customer/]");
         map.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/auth/login");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/auth/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

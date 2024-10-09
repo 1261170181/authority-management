@@ -1,15 +1,15 @@
 package com.zhu.authoritymanagement.controller;
 
 import com.zhu.authoritymanagement.aop.ControllerWebLog;
-import com.zhu.authoritymanagement.entity.Account;
-import com.zhu.authoritymanagement.util.Response;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +27,7 @@ public class LoginController {
      * 显示登录页面
      */
     @ControllerWebLog(name = "显示登录页面")
-    @GetMapping("/tologin")
+    @GetMapping("/login")
     public String loginPage() {
         return "login/login";
     }
@@ -37,7 +37,9 @@ public class LoginController {
      */
     @ControllerWebLog(name = "显示用户主页")
     @GetMapping("/main")
-    public String userPage() {
+    public String userPage(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
         return "main/main";
     }
 
@@ -46,23 +48,26 @@ public class LoginController {
      * 登录
      */
     @ControllerWebLog(name = "登录")
-    @PostMapping("/login")
-    @ResponseBody
-    public Response<String> login(@RequestBody Account account,HttpSession session) {
+    @PostMapping("/doLogin")
+    public String login(String username, String password, HttpSession session, RedirectAttributes redirectAttributes) {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
-            return Response.failed("用户已登录");
+            redirectAttributes.addFlashAttribute("error", "已登录");
+            return "redirect:/auth/login";
         }
-        UsernamePasswordToken token = new UsernamePasswordToken(account.getUsername(), account.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
-            session.setAttribute("account", token.getPrincipal());
-            return Response.ok("redirect:/auth/main");
+            //session.setAttribute("account", token.getPrincipal());
+            session.setAttribute("username", username);
+            return "redirect:/auth/main";
         } catch (Exception e) {
             if (e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException) {
-                return Response.failed("用户名或密码错误");
+                redirectAttributes.addFlashAttribute("error", "用户名或密码错误");
+                return "redirect:/auth/login";
             }
-            return Response.failed("登录失败");
+            redirectAttributes.addFlashAttribute("error", "登录失败");
+            return "redirect:/auth/login";
         }
     }
 
@@ -71,14 +76,14 @@ public class LoginController {
      */
     @ControllerWebLog(name = "登出")
     @PutMapping("/logout")
-    @ResponseBody
-    public Response<String> logout() {
+    public String logout(RedirectAttributes redirectAttributes) {
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isAuthenticated()) {
-            return Response.failed("尚未登录");
+            redirectAttributes.addFlashAttribute("error", "尚未登录");
+            return "redirect:/auth/login";
         }
         subject.logout();
-        return Response.ok("redirect:/auth/login");
+        return "redirect:/auth/login";
     }
 
 }
