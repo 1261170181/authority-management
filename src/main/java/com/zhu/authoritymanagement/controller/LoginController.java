@@ -24,6 +24,25 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     /**
+     * 显示登录页面
+     */
+    @ControllerWebLog(name = "显示登录页面")
+    @GetMapping("/tologin")
+    public String loginPage() {
+        return "login/login";
+    }
+
+    /**
+     * 显示用户主页
+     */
+    @ControllerWebLog(name = "显示用户主页")
+    @GetMapping("/main")
+    public String userPage() {
+        return "main/main";
+    }
+
+
+    /**
      * 登录
      */
     @ControllerWebLog(name = "登录")
@@ -31,11 +50,14 @@ public class LoginController {
     @ResponseBody
     public Response<String> login(@RequestBody Account account,HttpSession session) {
         Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            return Response.failed("用户已登录");
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(account.getUsername(), account.getPassword());
         try {
             subject.login(token);
             session.setAttribute("account", token.getPrincipal());
-            return Response.ok(null);
+            return Response.ok("redirect:/auth/main");
         } catch (Exception e) {
             if (e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException) {
                 return Response.failed("用户名或密码错误");

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
+    <title>新增角色</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <style>
         body {
@@ -15,14 +15,14 @@
             height: 100vh;
             margin: 0;
         }
-        .login-container {
+        .add-role-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .login-container h2 {
+        .add-role-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
@@ -57,22 +57,25 @@
     </style>
 </head>
 <body>
-<div class="login-container">
-    <h2>登录</h2>
-    <form th:action="@{/auth/login}" method="post">
+<div class="add-role-container">
+    <h2>新增角色</h2>
+    <form th:action="@{/role/add}" method="post">
         <div class="form-group">
-            <label for="username">用户名:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="roleName">角色名称:</label>
+            <input type="text" id="roleName" name="roleName" required>
         </div>
         <div class="form-group">
-            <label for="password">密码:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="roleRemark">角色备注:</label>
+            <input type="text" id="roleRemark" name="roleRemark" required>
         </div>
         <div class="form-group">
-            <button type="submit">登录</button>
+            <label for="resourceId">资源ID:</label>
+            <input type="number" id="resourceId" name="resourceId" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">新增</button>
         </div>
     </form>
 </div>
 </body>
-
 </html>

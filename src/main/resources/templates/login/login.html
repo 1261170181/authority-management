@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增客户</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>登录</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,14 +14,14 @@
             height: 100vh;
             margin: 0;
         }
-        .add-customer-container {
+        .login-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .add-customer-container h2 {
+        .login-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
@@ -57,25 +56,51 @@
     </style>
 </head>
 <body>
-<div class="add-customer-container">
-    <h2>新增客户</h2>
-    <form th:action="@{/customer/add}" method="post">
+<div class="login-container">
+    <h2>登录</h2>
+    <form id="loginForm">
         <div class="form-group">
-            <label for="name">姓名:</label>
-            <input type="text" id="name" name="name" required>
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="sex">性别:</label>
-            <input type="text" id="sex" name="sex" required>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <label for="age">年龄:</label>
-            <input type="number" id="age" name="age" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">新增</button>
+            <button type="button" onclick="submitForm()">登录</button>
         </div>
     </form>
 </div>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('loginForm');
+        const data = {
+            username: form.username.value,
+            password: form.password.value
+        };
+
+        fetch('/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.data.startsWith('redirect:')) {
+                    window.location.href ='http://localhost:8080/' + data.data.substring(9);
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
 </body>
+
 </html>

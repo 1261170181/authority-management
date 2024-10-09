@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增角色</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>新增客户</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,14 +14,14 @@
             height: 100vh;
             margin: 0;
         }
-        .add-role-container {
+        .add-customer-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .add-role-container h2 {
+        .add-customer-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
@@ -57,20 +56,20 @@
     </style>
 </head>
 <body>
-<div class="add-role-container">
-    <h2>新增角色</h2>
-    <form th:action="@{/role/add}" method="post">
+<div class="add-customer-container">
+    <h2>新增客户</h2>
+    <form th:action="@{/customer/add}" method="post">
         <div class="form-group">
-            <label for="roleName">角色名称:</label>
-            <input type="text" id="roleName" name="roleName" required>
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="roleRemark">角色备注:</label>
-            <input type="text" id="roleRemark" name="roleRemark" required>
+            <label for="sex">性别:</label>
+            <input type="text" id="sex" name="sex" required>
         </div>
         <div class="form-group">
-            <label for="resourceId">资源ID:</label>
-            <input type="number" id="resourceId" name="resourceId" required>
+            <label for="age">年龄:</label>
+            <input type="number" id="age" name="age" required>
         </div>
         <div class="form-group">
             <button type="submit">新增</button>
