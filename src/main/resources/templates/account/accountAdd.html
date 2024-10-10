@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>添加用户</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>添加账号</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,7 +57,7 @@
 </head>
 <body>
 <div class="add-user-container">
-    <h2>新增用户</h2>
+    <h2>添加账号</h2>
     <form th:action="@{/account/add}" method="post">
         <div class="form-group">
             <label for="username">用户名:</label>
@@ -69,10 +68,9 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <button type="submit">新增</button>
+            <button type="submit">提交</button>
         </div>
     </form>
 </div>
 </body>
-
 </html>

@@ -46,7 +46,4 @@ public class Account extends BaseEntity {
     @TableField("salt")
     private String salt;
 
-    @TableField(exist = false)
-    private Long roleId;
-
 }

@@ -31,14 +31,14 @@ public class BaseEntity implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "create_account_id", fill = FieldFill.INSERT)
-    private Long createAccountId;
+    @TableField(value = "create_account", fill = FieldFill.INSERT)
+    private String createAccount;
 
     /**
      * 修改人
      */
-    @TableField(value = "modified_account_id", fill = FieldFill.UPDATE)
-    private Long modifiedAccountId;
+    @TableField(value = "modified_account", fill = FieldFill.UPDATE)
+    private String modifiedAccount;
 
     /**
      * 删除标识

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -51,6 +52,12 @@ public class AccountController {
         this.accountRoleService = accountRoleService;
     }
 
+    @ControllerWebLog(name = "显示添加账号页面")
+    @GetMapping("/add")
+    public String showAddAccountForm() {
+        return "account/accountAdd";
+    }
+
     /**
      * 查询账号列表
      */
@@ -67,20 +74,26 @@ public class AccountController {
      */
     @ControllerWebLog(name = "添加账号")
     @PostMapping("/add")
-    @ResponseBody
-    public Response<Object> addAccount(@RequestBody Account account) {
+    public String addAccount(Account account, RedirectAttributes redirectAttributes) {
         LambdaQueryWrapper<Account> queryWrapper = Wrappers.<Account>lambdaQuery()
                 .eq(Account::getUsername, account.getUsername());
         if (accountService.count(queryWrapper) > 0) {
-            return Response.failed("用户名重复");
+            redirectAttributes.addFlashAttribute("message", "用户名重复");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            return "redirect:/main";
         }
         accountService.setPasswordAndSalt(account);
         boolean result = accountService.save(account);
         if (result) {
             long id = account.getAccountId();
             accountService.setRoleAccount(id, 2L);
+            redirectAttributes.addFlashAttribute("message", "账号添加成功");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "账号添加失败");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         }
-        return Response.buildResult(result);
+        return "redirect:/main";
     }
 
     /**

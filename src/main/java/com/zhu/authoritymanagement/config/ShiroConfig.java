@@ -7,9 +7,11 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
 *
@@ -64,7 +66,7 @@ public class ShiroConfig {
         map.put("/customer/**","perms[customer/]");
         map.put("/**", "authc");
         shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

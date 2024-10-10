@@ -98,8 +98,8 @@
 <div class="sidebar">
     <a href="javascript:void(0)" onclick="toggleSubmenu('accountSubmenu')">账号管理</a>
     <div id="accountSubmenu" class="submenu">
-        <a href="/account/list">账号列表</a>
-        <a href="/account/add">添加账号</a>
+        <a th:href="@{/account/list}">账号列表</a>
+        <a th:href="@{/account/add}">添加账号</a>
         <a href="/account/update">更新账号</a>
         <a href="/account/setrole">设置角色</a>
         <a href="/account/delete">删除账号</a>
@@ -119,10 +119,13 @@
     <div class="header">
         <h1>欢迎，<span th:text="${username}">用户</span></h1>
     </div>
+    <div th:if="${message}" class="alert" th:classappend="${alertClass}">
+        <span th:text="${message}"></span>
+    </div>
     <div class="profile">
         <h2>个人信息</h2>
         <p>用户名: <span th:text="${username}">用户名</span></p>
-        <p>角色名: <span th:text="${username}">用户名</span></p>
+        <p>角色名: <span th:text="${roleName}">角色</span></p>
     </div>
     <div class="actions">
         <button th:onclick="|window.location.href='@{/editProfile}'|">编辑资料</button>
@@ -131,6 +134,9 @@
             <button type="submit">退出登录</button>
         </form>
     </div>
+</div>
+</body>
+</html>
 </div>
 </body>
 </html>
