@@ -11,6 +11,8 @@ import com.zhu.authoritymanagement.service.IAccountService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +26,7 @@ import java.util.List;
  * @author zhu
  * @since 2024-09-12
  */
-@RestController
+@Controller
 @RequestMapping("/account")
 public class AccountController {
 
@@ -54,10 +56,10 @@ public class AccountController {
      */
     @ControllerWebLog(name = "查询账号列表")
     @GetMapping("/list")
-    @ResponseBody
-    public Response<List<AccountVO>> listAccount() {
+    public String listAccount(Model model) {
         List<AccountVO> accountVO = accountService.listAccount();
-        return Response.ok(accountVO);
+        model.addAttribute("accountList", accountVO);
+        return "account/accountList";
     }
 
     /**

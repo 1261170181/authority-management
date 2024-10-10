@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
  * @since 2024-9-18
  */
 @Controller
-@RequestMapping("auth")
 public class LoginController {
 
     /**
@@ -38,7 +37,7 @@ public class LoginController {
     @ControllerWebLog(name = "显示用户主页")
     @GetMapping("/main")
     public String userPage(HttpSession session, Model model) {
-        String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("account");
         model.addAttribute("username", username);
         return "main/main";
     }
@@ -53,21 +52,20 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             redirectAttributes.addFlashAttribute("error", "已登录");
-            return "redirect:/auth/login";
+            return "redirect:/login";
         }
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
-            //session.setAttribute("account", token.getPrincipal());
-            session.setAttribute("username", username);
-            return "redirect:/auth/main";
+            session.setAttribute("account", token.getPrincipal());
+            return "redirect:/main";
         } catch (Exception e) {
             if (e instanceof UnknownAccountException || e instanceof IncorrectCredentialsException) {
                 redirectAttributes.addFlashAttribute("error", "用户名或密码错误");
-                return "redirect:/auth/login";
+                return "redirect:/login";
             }
             redirectAttributes.addFlashAttribute("error", "登录失败");
-            return "redirect:/auth/login";
+            return "redirect:/login";
         }
     }
 
@@ -80,10 +78,10 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isAuthenticated()) {
             redirectAttributes.addFlashAttribute("error", "尚未登录");
-            return "redirect:/auth/login";
+            return "redirect:/login";
         }
         subject.logout();
-        return "redirect:/auth/login";
+        return "redirect:/login";
     }
 
 }

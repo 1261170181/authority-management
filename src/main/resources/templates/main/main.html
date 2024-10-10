@@ -122,10 +122,11 @@
     <div class="profile">
         <h2>个人信息</h2>
         <p>用户名: <span th:text="${username}">用户名</span></p>
+        <p>角色名: <span th:text="${username}">用户名</span></p>
     </div>
     <div class="actions">
         <button th:onclick="|window.location.href='@{/editProfile}'|">编辑资料</button>
-        <form th:action="@{/auth/logout}" method="post" style="display:inline;">
+        <form th:action="@{/logout}" method="post" style="display:inline;">
             <input type="hidden" name="_method" value="put">
             <button type="submit">退出登录</button>
         </form>
