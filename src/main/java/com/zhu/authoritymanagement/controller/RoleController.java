@@ -8,8 +8,11 @@ import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
+import com.zhu.authoritymanagement.vo.CustomerVO;
 import com.zhu.authoritymanagement.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +27,7 @@ import java.util.List;
  * @author zhu
  * @since 2024-09-12
  */
-@RestController
+@Controller
 @RequestMapping("/role")
 public class RoleController {
 
@@ -47,9 +50,10 @@ public class RoleController {
      */
     @ControllerWebLog(name = "查询角色列表")
     @GetMapping("/list")
-    @ResponseBody
-    public Response<List<RoleVO>> listRole() {
-        return Response.ok(roleService.listRole());
+    public String listRole(Model model) {
+        List<RoleVO> roleVO = roleService.listRole();
+        model.addAttribute("roleList", roleVO);
+        return "role/roleList";
     }
 
     /**

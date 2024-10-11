@@ -7,6 +7,8 @@ import com.zhu.authoritymanagement.entity.Customer;
 import com.zhu.authoritymanagement.service.ICustomerService;
 import com.zhu.authoritymanagement.util.Response;
 import com.zhu.authoritymanagement.vo.CustomerVO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +22,7 @@ import java.util.List;
  * @author zhu
  * @since 2024-09-12
  */
-@RestController
+@Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
@@ -32,9 +34,10 @@ public class CustomerController {
      */
     @ControllerWebLog(name = "查询客户列表")
     @GetMapping("/list")
-    @ResponseBody
-    public Response<List<CustomerVO>> listCustomer() {
-        return Response.ok(customerService.listCustomer());
+    public String listCustomer(Model model) {
+        List<CustomerVO> customerVO = customerService.listCustomer();
+        model.addAttribute("customerList", customerVO);
+        return "customer/customerList";
     }
 
     /**

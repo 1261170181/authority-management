@@ -100,19 +100,32 @@
     <div id="accountSubmenu" class="submenu">
         <a th:href="@{/account/list}">账号列表</a>
         <a th:href="@{/account/add}">添加账号</a>
-        <a href="/account/update">更新账号</a>
-        <a href="/account/setrole">设置角色</a>
-        <a href="/account/delete">删除账号</a>
+        <a th:href="@{/account/update}">更新账号</a>
+        <a th:href="@{/account/setrole}">设置角色</a>
+        <a th:href="@{/account/delete}">删除账号</a>
     </div>
     <a href="javascript:void(0)" onclick="toggleSubmenu('roleSubmenu')">角色管理</a>
     <div id="roleSubmenu" class="submenu">
-        <a href="#">子选项1</a>
-        <a href="#">子选项2</a>
+        <a th:href="@{/role/list}">角色列表</a>
+        <a th:href="@{/role/detail}">角色详情</a>
+        <a th:href="@{/role/add}">添加角色</a>
+        <a th:href="@{/role/update}">更新角色</a>
+        <a th:href="@{/role/delete}">删除角色</a>
+    </div>
+    <a href="javascript:void(0)" onclick="toggleSubmenu('resourceSubmenu')">权限管理</a>
+    <div id="resourceSubmenu" class="submenu">
+        <a th:href="@{/resource/list}">权限列表</a>
+        <a th:href="@{/resource/add}">添加权限</a>
+        <a th:href="@{/resource/update}">更新权限</a>
+        <a th:href="@{/resource/delete}">删除权限</a>
     </div>
     <a href="javascript:void(0)" onclick="toggleSubmenu('customerSubmenu')">客户管理</a>
     <div id="customerSubmenu" class="submenu">
-        <a href="#">子选项1</a>
-        <a href="#">子选项2</a>
+        <a th:href="@{/customer/list}">客户列表</a>
+        <a th:href="@{/customer/detail}">客户详情</a>
+        <a th:href="@{/customer/add}">添加客户</a>
+        <a th:href="@{/customer/update}">更新客户</a>
+        <a th:href="@{/customer/delete}">删除客户</a>
     </div>
 </div>
 <div class="container">
