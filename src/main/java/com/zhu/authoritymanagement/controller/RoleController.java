@@ -8,7 +8,6 @@ import com.zhu.authoritymanagement.entity.Role;
 import com.zhu.authoritymanagement.service.IResourceService;
 import com.zhu.authoritymanagement.service.IRoleService;
 import com.zhu.authoritymanagement.util.Response;
-import com.zhu.authoritymanagement.vo.CustomerVO;
 import com.zhu.authoritymanagement.vo.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
